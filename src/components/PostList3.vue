@@ -6,36 +6,30 @@
         active-class="pink--text"
         multiple
       >
-        <template v-for="(item, index) in items">
-          <v-list-item :key="item.title">
-            <template v-slot:default="{ active }">
-              <v-list-item-content>
+        <template v-for="(item, index) in posts">
+          <v-list-item :key="item.id">
+            <!-- <template v-slot:default="{ active }"> -->
+            <template>
+              <v-list-item-content class="d-flex">
                 <v-list-item-title v-text="item.title"></v-list-item-title>
+                <div>
+                  <span>{{item.createdAt}}</span>
+                  <span>조회{{item.views}}</span>
+                  <span>댓글{{item.comments.length}}</span>
+                </div>
 
-                <v-list-item-subtitle
+                <!-- <v-list-item-subtitle
                   class="text--primary"
-                  v-text="item.headline"
-                ></v-list-item-subtitle>
+                  v-text="item.content"
+                ></v-list-item-subtitle> -->
 
-                <v-list-item-subtitle v-text="item.subtitle"></v-list-item-subtitle>
+                <!-- <v-list-item-subtitle v-text="item.content">
+                </v-list-item-subtitle> -->
               </v-list-item-content>
 
               <v-list-item-action>
-                <v-list-item-action-text v-text="item.action"></v-list-item-action-text>
+                <!-- <v-list-item-action-text v-text="item.title"></v-list-item-action-text> -->
 
-                <v-icon
-                  v-if="!active"
-                  color="grey lighten-1"
-                >
-                  mdi-star-outline
-                </v-icon>
-
-                <v-icon
-                  v-else
-                  color="yellow darken-3"
-                >
-                  mdi-star
-                </v-icon>
               </v-list-item-action>
             </template>
           </v-list-item>
@@ -51,6 +45,9 @@
 </template>
 <script>
 export default {
+  props: [
+    'posts',
+  ],
   data: () => ({
     selected: [2],
     items: [

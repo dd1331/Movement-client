@@ -2,7 +2,7 @@
   <div class="home">
     <Home-Carousel></Home-Carousel>
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <Post-List></Post-List>
+    <Post-List :posts="posts"></Post-List>
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   </div>
 </template>
@@ -19,6 +19,16 @@ export default {
     // HelloWorld,
     HomeCarousel,
     PostList,
+  },
+  data() {
+    return {
+      posts: null,
+    };
+  },
+  created() {
+    this.$axios
+      .get('http://localhost:3000/posts')
+      .then((res) => { this.posts = res.data; });
   },
 };
 </script>
