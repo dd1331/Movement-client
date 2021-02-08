@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="mb-6">Signup</h1>
+    <h1 class="mb-6">회원가입</h1>
     <v-form
       ref="form"
       v-model="valid"
@@ -30,7 +30,7 @@
         @click="validate"
         min-width="100%"
       >
-        signup
+        가입
       </v-btn>
       <v-btn
         color="warning"
@@ -38,7 +38,7 @@
         min-width="100%"
         @click="$router.push('/')"
       >
-        cancel
+        취소
       </v-btn>
     </v-form>
   </div>
