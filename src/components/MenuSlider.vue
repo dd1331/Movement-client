@@ -8,6 +8,7 @@
       <v-tabs-slider color="primary lighten-3"></v-tabs-slider>
 
       <v-tab
+      class="p-0"
         v-for="i in items"
         :key="i"
         :href="'#tab-' + i"

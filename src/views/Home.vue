@@ -22,13 +22,15 @@ export default {
   },
   data() {
     return {
-      posts: null,
     };
   },
+  computed: {
+    posts() {
+      return this.$store.getters['post/getPosts'];
+    },
+  },
   created() {
-    this.$axios
-      .get('http://localhost:3000/posts')
-      .then((res) => { this.posts = res.data; });
+    this.$store.dispatch('post/fetchPosts');
   },
 };
 </script>

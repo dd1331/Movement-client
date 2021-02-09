@@ -1,6 +1,6 @@
 <template>
   <v-app-bar class="test" app color="primary" dark>
-      <div class="d-flex align-center" @click="$router.push('/')">
+      <div class="d-flex" @click="$router.push('/')">
         <v-img alt="Vuetify Logo" class="shrink mr-2" contain src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png" transition="scale-transition" width="40"/>
         <h1>
           movement
@@ -8,7 +8,7 @@
         <!-- <v-img alt="Vuetify Name" class="shrink mt-1 hidden-sm-and-down" contain min-width="100" src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png" width="100"/> -->
       </div>
       <v-spacer></v-spacer>
-        <span v-if="true" @click="$router.push('/login')">
+        <span v-if="!user" @click="$router.push('/signup')">
           로그인
         </span>
         <span v-else @click="$router.push('/login')">
@@ -26,6 +26,12 @@ import MenuSlider from './MenuSlider';
 export default {
   components: {
     MenuSlider,
+  },
+  computed: {
+    user() {
+      return this.$store.getters['user/getAppUser'];
+    },
+
   },
 };
 </script>

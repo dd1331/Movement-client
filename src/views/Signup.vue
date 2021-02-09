@@ -41,9 +41,24 @@
         취소
       </v-btn>
     </v-form>
+      <div id="naverIdLogin">
+        <!-- <v-btn>네이버로 로그인</v-btn> -->
+      </div>
   </div>
 </template>
 <script>
+// eslint-disable-next-line no-undef
+// const naverLogin = new naver.LoginWithNaverId(
+//   {
+//     clientId: 'ag_B0_vLXpvrgG1J5Upp',
+//     callbackUrl: 'http://192.168.35.237:8080/naver/callback',
+//     isPopup: false, /* 팝업을 통한 연동처리 여부 */
+//     loginButton: { color: 'green', type: 3, height: 60 }, /* 로그인 버튼의 타입을 지정 */
+//   },
+// );
+
+/* 설정정보를 초기화하고 연동을 준비 */
+
 export default {
   data: () => ({
     valid: true,
@@ -57,6 +72,7 @@ export default {
       (v) => !!v || 'Phone is required',
       (v) => (v && v.length > 4) || 'Phone must be more than 11 characters',
     ],
+    naverLogin: null,
   }),
 
   methods: {
@@ -69,6 +85,21 @@ export default {
     resetValidation() {
       this.$refs.form.resetValidation();
     },
+  },
+  mounted() {
+    // eslint-disable-next-line no-undef
+    this.naverLogin = new naver.LoginWithNaverId(
+      {
+        clientId: 'ag_B0_vLXpvrgG1J5Upp',
+        callbackUrl: 'http://192.168.35.237:8080/auth/naver',
+        // callbackUrl: 'http://192.168.35.237:3000/auth/naver',
+        // callbackUrl: 'http://192.168.35.237:8080/naver/callback',
+        isPopup: false, /* 팝업을 통한 연동처리 여부 */
+        loginButton: { color: 'green', type: 3, height: 60 }, /* 로그인 버튼의 타입을 지정 */
+      },
+    );
+    console.log('this.naverLogin', this.naverLogin);
+    this.naverLogin.init();
   },
 };
 </script>
