@@ -11,7 +11,7 @@
         <span v-if="!user" @click="$router.push('/signup')">
           로그인
         </span>
-        <span v-else @click="$router.push('/login')">
+        <span v-else @click="logout">
           로그아웃
         </span>
 
@@ -27,9 +27,15 @@ export default {
   components: {
     MenuSlider,
   },
+  methods: {
+    logout() {
+      this.$store.dispatch('auth/logout');
+      this.$router.push('/');
+    },
+  },
   computed: {
     user() {
-      return this.$store.getters['user/getAppUser'];
+      return this.$store.getters['auth/getAppUser'];
     },
 
   },

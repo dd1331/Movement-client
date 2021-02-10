@@ -1,13 +1,20 @@
 import axios from 'axios';
 
+const getAppUser = () => localStorage.getItem('appUser');
+
 export default {
   namespaced: true,
   state: () => ({
-    appUser: null,
+    appUser: getAppUser(),
   }),
   mutations: {
     SET_USER(state, user) {
       state.appUser = user;
+      localStorage.setItem('appUser', JSON.stringify(user));
+    },
+    REMOVE_USER(state) {
+      state.appUser = null;
+      localStorage.removeItem('appUser');
     },
   },
   actions: {
@@ -16,6 +23,9 @@ export default {
         id,
       });
       commit('SET_USER', data);
+    },
+    async logout({ commit }) {
+      commit('REMOVE_USER');
     },
   },
   getters: {

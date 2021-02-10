@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Signup from '../views/Signup.vue';
+import Login from '../views/Login.vue';
 import NaverCallback from '../views/NaverCallback.vue';
 import PostList from '../views/PostList.vue';
 
@@ -17,6 +18,11 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: Signup,
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
   },
   {
     path: '/auth/naver',

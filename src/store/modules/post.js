@@ -12,7 +12,7 @@ export default {
   },
   actions: {
     async fetchPosts({ commit }) {
-      const { data } = await axios.get('http://192.168.35.237:3000/posts');
+      const { data } = await axios.get('http://localhost:3000/posts');
       commit('setPosts', data.slice(0, 20));
     },
   },
