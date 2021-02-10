@@ -30,7 +30,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('post/fetchPosts');
+    this.$store.dispatch('post/fetchAllPosts');
   },
 };
 </script>

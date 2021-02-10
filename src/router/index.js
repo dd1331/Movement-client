@@ -4,7 +4,9 @@ import Home from '../views/Home.vue';
 import Signup from '../views/Signup.vue';
 import Login from '../views/Login.vue';
 import NaverCallback from '../views/NaverCallback.vue';
-import PostList from '../views/PostList.vue';
+import PostList from '../views/post/PostList.vue';
+import PostView from '../views/post/PostView.vue';
+import PostForm from '../views/post/PostForm.vue';
 
 Vue.use(VueRouter);
 
@@ -33,6 +35,21 @@ const routes = [
     path: '/posts',
     name: 'Posts',
     component: PostList,
+  },
+  {
+    path: '/posts/form',
+    name: 'PostForm',
+    component: PostForm,
+  },
+  {
+    path: '/posts/edit/:id',
+    name: 'PostForm',
+    component: PostForm,
+  },
+  {
+    path: '/posts/:id',
+    name: 'PostView',
+    component: PostView,
   },
   {
     path: '/about',

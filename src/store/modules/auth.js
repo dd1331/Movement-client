@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getAppUser = () => localStorage.getItem('appUser');
+const getAppUser = () => JSON.parse(localStorage.getItem('appUser'));
 
 export default {
   namespaced: true,

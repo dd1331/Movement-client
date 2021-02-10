@@ -12,6 +12,7 @@
         v-for="i in items"
         :key="i"
         :href="'#tab-' + i"
+        @click="$router.push('/posts')"
       >
         {{ i }}
       </v-tab>
