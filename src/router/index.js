@@ -43,7 +43,7 @@ const routes = [
   },
   {
     path: '/posts/edit/:id',
-    name: 'PostForm',
+    name: 'PostFormEdit',
     component: PostForm,
   },
   {

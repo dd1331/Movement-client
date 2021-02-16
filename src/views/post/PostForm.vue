@@ -62,13 +62,16 @@ export default {
     },
   },
   methods: {
-    createOrUpdate() {
+    async createOrUpdate() {
       if (this.mode === 'create') {
         this.createPostInput.poster = this.user.id;
         this.$store.dispatch('post/creataPost', this.createPostInput);
         return;
       }
-      this.$store.dispatch('post/updatePost', this.updatePostInput);
+      const updatedPost = await this.$store.dispatch('post/updatePost', this.updatePostInput);
+      if (updatedPost) {
+        this.$router.push(`/posts/${this.postInput.id}`);
+      }
     },
   },
   created() {

@@ -7,7 +7,7 @@
         multiple
       >
         <template v-for="(item, index) in posts">
-          <v-list-item :key="item.id" @click="$router.push('posts/230')">
+          <v-list-item :key="item.id" @click="$router.push(`posts/${item.id}`)">
             <!-- <template v-slot:default="{ active }"> -->
             <template>
               <v-list-item-content class="d-flex">
