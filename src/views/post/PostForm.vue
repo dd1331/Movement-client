@@ -37,10 +37,7 @@ export default {
         title: '',
         content: '',
       },
-      createPostInput: {
-        ...this.postInput,
-        poster: 0,
-      },
+
     };
   },
   computed: {
@@ -60,12 +57,19 @@ export default {
     activePost() {
       return this.$store.getters['post/getActivePost'];
     },
+    currentCategory() {
+      return this.$store.getters['common/getCurrentCategory'];
+    },
   },
   methods: {
     async createOrUpdate() {
       if (this.mode === 'create') {
-        this.createPostInput.poster = this.user.id;
-        this.$store.dispatch('post/creataPost', this.createPostInput);
+        const createPostInput = {
+          ...this.postInput,
+          poster: this.user.id,
+          category: 'free',
+        };
+        this.$store.dispatch('post/creataPost', createPostInput);
         return;
       }
       const updatedPost = await this.$store.dispatch('post/updatePost', this.updatePostInput);
@@ -75,7 +79,6 @@ export default {
     },
   },
   created() {
-    console.log(this.mode);
     if (this.mode === 'update') {
       // const activePost = this.$store.getters['post/getActivePost'];
       this.postInput.title = this.activePost.title;

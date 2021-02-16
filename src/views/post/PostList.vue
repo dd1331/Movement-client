@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>자유게시판</h1>
+    <h1>{{category.koTitle}}</h1>
     <post-list-component :posts="posts"></post-list-component>
   </div>
 </template>
@@ -12,13 +12,21 @@ export default {
     return {};
   },
   created() {
-    this.$store.dispatch('post/fetchAllPosts');
+  },
+  beforeRouteUpdate(_, __, next) {
+    const category = this.$store.getters['common/getCurrentCategory'];
+    this.$store.dispatch('post/fetchCategorizedPosts', category);
+    next();
   },
   computed: {
+    category() {
+      return this.$store.getters['common/getCurrentCategory'];
+    },
     posts() {
       return this.$store.getters['post/getPosts'];
     },
   },
+
   components: { PostListComponent },
 
 };

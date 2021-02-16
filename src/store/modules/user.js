@@ -20,7 +20,6 @@ export default {
   },
   getters: {
     getAppUser(state) {
-      console.log('tes');
       return state.appUser;
     },
   },

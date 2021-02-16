@@ -10,9 +10,9 @@
       class="p-0"
         v-for="category in categories"
         :key="category.id"
-        @click="$router.push('/posts')"
+        @click="sendTo(category)"
       >
-        {{ category.title }}
+        {{ category.koTitle }}
       </v-tab>
     </v-tabs>
   </v-card>
@@ -27,12 +27,19 @@ export default {
     categories() {
       return this.$store.getters['common/getCategories'].map((category) => {
         // eslint-disable-next-line no-param-reassign
-        category.title = this.translateToKorean(category.title);
+        category.koTitle = this.translateToKorean(category.title);
         return category;
       });
     },
   },
   methods: {
+    sendTo(category) {
+      this.$store.commit('common/setCurrentCategory', category);
+
+      if (this.$router.history.current.path === `/posts/${category.title}`) return;
+
+      this.$router.push(`/posts/${category.title}`);
+    },
     translateToKorean(key) {
       switch (key) {
         case 'exercise':
@@ -44,7 +51,7 @@ export default {
         case 'meetup':
           return '모임';
         default:
-          return '자유';
+          return '잡담';
       }
     },
   },

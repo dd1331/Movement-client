@@ -23,13 +23,17 @@ export default {
       const { data } = await axios.get('http://localhost:3000/posts');
       commit('setPosts', data.slice(0, 20));
     },
+    async fetchCategorizedPosts({ commit }, payload) {
+      const { data } = await axios.get(`http://localhost:3000/posts/${payload.title}`);
+      commit('setPosts', data.slice(0, 20));
+    },
     async fetchPost({ commit }, id) {
       // const { data } = await axios.get('http://localhost:3000/posts', { id });
       const { data } = await axios.get(`http://localhost:3000/posts/${id}`);
       commit('setActivePost', data);
     },
-    async creataPost(_, post) {
-      await axios.post('http://localhost:3000/posts/create', post);
+    async creataPost(_, payload) {
+      await axios.post(`http://localhost:3000/posts/${payload.category}/create`, payload);
     },
     async updatePost(_, post) {
       const { data } = await axios.patch('http://localhost:3000/posts', post);
@@ -40,7 +44,6 @@ export default {
         // TODO replace temperal return value
         const res = id;
         // const res = await axios.delete(`http://localhost:3000/posts/${id}`);
-        console.log(res);
         return res;
       } catch (error) {
         return error;

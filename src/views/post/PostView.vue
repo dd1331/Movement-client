@@ -75,9 +75,8 @@ export default {
         type: 'post',
         isLike: true,
       };
-      const res = await this.$store.dispatch('post/likePost', payload);
+      await this.$store.dispatch('post/likePost', payload);
       this.setLikeStatus();
-      console.log('res', res);
     },
     async dislikePost() {
       const payload = {
@@ -86,9 +85,8 @@ export default {
         type: 'post',
         isLike: false,
       };
-      const res = await this.$store.dispatch('post/dislikePost', payload);
+      await this.$store.dispatch('post/dislikePost', payload);
       this.setLikeStatus();
-      console.log('res2', res);
     },
   },
   data() {
