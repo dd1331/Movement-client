@@ -6,15 +6,13 @@
       show-arrows
     >
       <v-tabs-slider color="primary lighten-3"></v-tabs-slider>
-
       <v-tab
       class="p-0"
-        v-for="i in items"
-        :key="i"
-        :href="'#tab-' + i"
+        v-for="category in categories"
+        :key="category.id"
         @click="$router.push('/posts')"
       >
-        {{ i }}
+        {{ category.title }}
       </v-tab>
     </v-tabs>
   </v-card>
@@ -23,8 +21,32 @@
 export default {
   data() {
     return {
-      items: ['일상1', '일상2', '일상3', '일상4', '일상5', '일상6'],
     };
+  },
+  computed: {
+    categories() {
+      return this.$store.getters['common/getCategories'].map((category) => {
+        // eslint-disable-next-line no-param-reassign
+        category.title = this.translateToKorean(category.title);
+        return category;
+      });
+    },
+  },
+  methods: {
+    translateToKorean(key) {
+      switch (key) {
+        case 'exercise':
+          return '운동';
+        case 'environment':
+          return '환경';
+        case 'news':
+          return '뉴스';
+        case 'meetup':
+          return '모임';
+        default:
+          return '자유';
+      }
+    },
   },
 };
 </script>

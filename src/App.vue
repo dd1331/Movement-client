@@ -31,7 +31,6 @@
 </template>
 
 <script>
-// import Home from './views/Home';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -47,5 +46,8 @@ export default {
   data: () => ({
     //
   }),
+  created() {
+    this.$store.dispatch('common/fetchCategories');
+  },
 };
 </script>

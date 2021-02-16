@@ -4,6 +4,7 @@ import user from './modules/user';
 import auth from './modules/auth';
 import post from './modules/post';
 import comment from './modules/comment';
+import common from './modules/common';
 
 Vue.use(Vuex);
 
@@ -19,6 +20,7 @@ const store = new Vuex.Store({
     post,
     auth,
     comment,
+    common,
   },
 });
 
