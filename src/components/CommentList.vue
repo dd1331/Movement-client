@@ -21,7 +21,7 @@
     <div v-for="comment in post.comments" v-bind:key="comment.id">
       <ul>
         {{comment.content}}
-        {{comment.createdAt}}
+        {{formatDate(comment.createdAt,{format:'MM.DD HH:MM'})}}
         {{comment.like}}
         {{comment.dislike}}
         {{comment.commenter.userName}}
@@ -34,7 +34,10 @@
   </div>
 </template>
 <script>
+import dateMixins from '../mixins/dateMixins';
+
 export default {
+  mixins: [dateMixins],
   data() {
     return {
       content: '',

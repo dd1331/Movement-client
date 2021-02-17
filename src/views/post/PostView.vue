@@ -3,9 +3,9 @@
     <section class="title border post-title">
       {{post.title}}
 
-      {{post.createdAt}}
-      {{post.views}}
-      {{post.poster.userName}}
+      {{formatDate(post.createdAt)}}
+      조회 {{post.views}}
+      작성자 {{post.poster.userName}}
       <span @click="edit">수정</span>
       <span @click="remove">삭제</span>
     </section>
@@ -29,9 +29,11 @@
   </div>
 </template>
 <script>
+import dateMixins from '../../mixins/dateMixins';
 import commentList from '../../components/CommentList';
 
 export default {
+  mixins: [dateMixins],
   components: { commentList },
   computed: {
     post() {
@@ -52,20 +54,26 @@ export default {
         return null;
       });
     },
+    currentCategory() {
+      return this.$store.getters['common/getCurrentCategory'];
+    },
   },
   methods: {
     edit() {
       this.$router.push(`/posts/edit/${this.post.id}`);
     },
     async remove() {
-      const removedPost = await this.$store.dispatch('post/removePost', this.post.id);
+      const removedPost = await this.$store.dispatch('post/removePost', {
+        id: this.post.id,
+        category: this.currentCategory.title,
+      });
       if (removedPost) {
-        this.$router.push('/posts');
+        this.$router.push(`/posts/list/${this.currentCategory.title}`);
       }
     },
     setLikeStatus() {
       // TODO refactor using store
-      const [userLike] = this.post.likes.filter((like) => like.userId === this.user.id);
+      const [userLike] = this.$store.getters['post/getActivePost'].likes.filter((like) => like.userId === this.user.id);
       this.likeStatus = userLike.isLike;
     },
     async likePost() {
@@ -94,9 +102,11 @@ export default {
       likeStatus: null,
     };
   },
-  async created() {
+  created() {
     const postId = this.$route.params.id;
-    await this.$store.dispatch('post/fetchPost', postId);
+    this.$store.dispatch('post/fetchPost', postId);
+  },
+  activated() {
     this.setLikeStatus();
   },
 };

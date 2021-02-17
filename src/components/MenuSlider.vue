@@ -36,9 +36,9 @@ export default {
     sendTo(category) {
       this.$store.commit('common/setCurrentCategory', category);
 
-      if (this.$router.history.current.path === `/posts/${category.title}`) return;
+      if (this.$router.history.current.path === `/posts/list/${category.title}`) return;
 
-      this.$router.push(`/posts/${category.title}`);
+      this.$router.push(`/posts/list/${category.title}`);
     },
     translateToKorean(key) {
       switch (key) {

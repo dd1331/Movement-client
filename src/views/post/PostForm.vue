@@ -74,7 +74,7 @@ export default {
       }
       const updatedPost = await this.$store.dispatch('post/updatePost', this.updatePostInput);
       if (updatedPost) {
-        this.$router.push(`/posts/${this.postInput.id}`);
+        this.$router.push(`/posts/view/${this.postInput.id}`);
       }
     },
   },

@@ -7,13 +7,16 @@
         multiple
       >
         <template v-for="(item, index) in posts">
-          <v-list-item :key="item.id" @click="$router.push(`posts/${item.id}`)">
+          <v-list-item :key="item.id"
+            @click="$router
+            .push(`/posts/view/${item.id}`)"
+          >
             <!-- <template v-slot:default="{ active }"> -->
             <template>
               <v-list-item-content class="d-flex">
                 <v-list-item-title v-text="item.title"></v-list-item-title>
                 <div>
-                  <span>{{item.createdAt}}</span>
+                  <span>{{formatDate(item.createdAt,{format:'HH:MM'})}}</span>
                   <span>조회{{item.views}}</span>
                   <span>댓글{{item.comments.length}}</span>
                 </div>
@@ -44,7 +47,10 @@
   </v-card>
 </template>
 <script>
+import dateMixins from '../mixins/dateMixins';
+
 export default {
+  mixins: [dateMixins],
   props: [
     'posts',
   ],
@@ -107,5 +113,10 @@ export default {
       },
     ],
   }),
+  computed: {
+    currentCategory() {
+      return this.$store.getters['common/getCurrentCategory'];
+    },
+  },
 };
 </script>

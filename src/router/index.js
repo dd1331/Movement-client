@@ -37,7 +37,12 @@ const routes = [
     component: PostForm,
   },
   {
-    path: '/posts/:category',
+    path: '/posts/view/:id',
+    name: 'PostView',
+    component: PostView,
+  },
+  {
+    path: '/posts/list/:category',
     name: 'Posts',
     component: PostList,
   },
@@ -45,11 +50,6 @@ const routes = [
     path: '/posts/edit/:id',
     name: 'PostFormEdit',
     component: PostForm,
-  },
-  {
-    path: '/posts/:id',
-    name: 'PostView',
-    component: PostView,
   },
   {
     path: '/about',

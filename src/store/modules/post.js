@@ -20,30 +20,30 @@ export default {
   },
   actions: {
     async fetchAllPosts({ commit }) {
-      const { data } = await axios.get('http://localhost:3000/posts');
+      const { data } = await axios.get('http://localhost:3000/posts/readAll');
       commit('setPosts', data.slice(0, 20));
     },
     async fetchCategorizedPosts({ commit }, payload) {
-      const { data } = await axios.get(`http://localhost:3000/posts/${payload.title}`);
+      const { data } = await axios.get(`http://localhost:3000/posts/readAll/${payload.title}`);
       commit('setPosts', data.slice(0, 20));
     },
-    async fetchPost({ commit }, id) {
-      // const { data } = await axios.get('http://localhost:3000/posts', { id });
-      const { data } = await axios.get(`http://localhost:3000/posts/${id}`);
+    async fetchPost({ commit }, postId) {
+      const { data } = await axios.get(`http://localhost:3000/posts/${postId}`);
       commit('setActivePost', data);
     },
     async creataPost(_, payload) {
-      await axios.post(`http://localhost:3000/posts/${payload.category}/create`, payload);
+      await axios.post('http://localhost:3000/posts/create', payload);
     },
     async updatePost(_, post) {
       const { data } = await axios.patch('http://localhost:3000/posts', post);
       return data;
     },
-    async removePost(_, id) {
+    async removePost({ dispatch }, payload) {
       try {
         // TODO replace temperal return value
-        const res = id;
+        const res = payload.id;
         // const res = await axios.delete(`http://localhost:3000/posts/${id}`);
+        dispatch('fetchCategorizedPosts', { title: payload.category });
         return res;
       } catch (error) {
         return error;
