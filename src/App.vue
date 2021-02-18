@@ -42,10 +42,6 @@ export default {
     Header,
     Footer,
   },
-
-  data: () => ({
-    //
-  }),
   created() {
     this.$store.dispatch('common/fetchCategories');
   },

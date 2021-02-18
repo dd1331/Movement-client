@@ -67,14 +67,16 @@ export default {
         const createPostInput = {
           ...this.postInput,
           poster: this.user.id,
-          category: 'free',
+          category: this.currentCategory.title,
         };
-        this.$store.dispatch('post/creataPost', createPostInput);
-        return;
+        const createdPost = await this.$store.dispatch('post/createPost', createPostInput);
+        if (createdPost) {
+          this.$router.push(`/posts/view/${createdPost.id}`);
+        }
       }
       const updatedPost = await this.$store.dispatch('post/updatePost', this.updatePostInput);
       if (updatedPost) {
-        this.$router.push(`/posts/view/${this.postInput.id}`);
+        this.$router.push(`/posts/view/${updatedPost.id}`);
       }
     },
   },

@@ -31,8 +31,9 @@ export default {
       const { data } = await axios.get(`http://localhost:3000/posts/${postId}`);
       commit('setActivePost', data);
     },
-    async creataPost(_, payload) {
-      await axios.post('http://localhost:3000/posts/create', payload);
+    async createPost(_, payload) {
+      const { data } = await axios.post('http://localhost:3000/posts/create', payload);
+      return data;
     },
     async updatePost(_, post) {
       const { data } = await axios.patch('http://localhost:3000/posts', post);
