@@ -74,7 +74,10 @@ router.beforeEach(async (to, from, next) => {
     await store.dispatch('common/fetchCategories');
   }
   if (to.params.category !== from.params.category) {
-    store.commit('common/setCurrentCategory', store.getters['common/getCategories'].find((category) => category.title === to.params.category));
+    const payload = store.getters['common/getCategories'].find((category) => category.title === to.params.category);
+    if (payload) {
+      store.commit('common/setCurrentCategory', payload);
+    }
   }
   next();
 });
