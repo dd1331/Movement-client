@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from '../store';
 import Home from '../views/Home.vue';
 import Signup from '../views/Signup.vue';
 import Login from '../views/Login.vue';
@@ -65,6 +66,17 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+  const currentCategory = store.getters['common/getCurrentCategory'];
+  if (!currentCategory.title) {
+    await store.dispatch('common/fetchCategories');
+  }
+  if (to.params.category !== from.params.category) {
+    store.commit('common/setCurrentCategory', store.getters['common/getCategories'].find((category) => category.title === to.params.category));
+  }
+  next();
 });
 
 export default router;

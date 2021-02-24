@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{category.koTitle}}</h1>
+    <h1 v-if="category">{{category.koTitle}}</h1>
     <v-spacer></v-spacer>
     <v-btn v-if="!isNews" @click="$router.push('/posts/form')">글쓰기</v-btn>
     <news-list v-if="isNews"></news-list>

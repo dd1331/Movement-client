@@ -5,7 +5,8 @@
       background-color="primary"
       show-arrows
     >
-      <v-tabs-slider color="primary lighten-3"></v-tabs-slider>
+    <!-- TODO check what v-tabs-slider is for -->
+      <!-- <v-tabs-slider color="primary lighten-3"></v-tabs-slider> -->
       <v-tab
       class="p-0"
         v-for="category in categories"
@@ -18,7 +19,11 @@
   </v-card>
 </template>
 <script>
+/* eslint-disable no-undef */
+import translateMixins from '../mixins/translateMixins';
+
 export default {
+  mixins: [translateMixins],
   data() {
     return {
     };
@@ -27,9 +32,12 @@ export default {
     categories() {
       return this.$store.getters['common/getCategories'].map((category) => {
         // eslint-disable-next-line no-param-reassign
-        category.koTitle = this.translateToKorean(category.title);
+        category.koTitle = this.titleToKorean(category.title);
         return category;
       });
+    },
+    currentCategory() {
+      return this.$store.getters['common/getCurrentCategory'];
     },
   },
   methods: {
@@ -39,20 +47,6 @@ export default {
       if (this.$router.history.current.path === `/posts/list/${category.title}`) return;
 
       this.$router.push(`/posts/list/${category.title}`);
-    },
-    translateToKorean(key) {
-      switch (key) {
-        case 'exercise':
-          return '운동';
-        case 'environment':
-          return '환경';
-        case 'news':
-          return '뉴스';
-        case 'meetup':
-          return '모임';
-        default:
-          return '잡담';
-      }
     },
   },
 };
