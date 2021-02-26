@@ -1,8 +1,10 @@
 <template>
   <div class="home">
-    <Home-Carousel></Home-Carousel>
+    추천글
+    <Home-Carousel :posts="recommendedPosts"></Home-Carousel>
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <Post-List :posts="posts"></Post-List>
+    인기글
+    <Post-List :posts="popularPosts"></Post-List>
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   </div>
 </template>
@@ -25,12 +27,16 @@ export default {
     };
   },
   computed: {
-    posts() {
-      return this.$store.getters['post/getPosts'];
+    popularPosts() {
+      return this.$store.getters['post/getPopularPosts'];
+    },
+    recommendedPosts() {
+      return this.$store.getters['post/getRecommendedPost'];
     },
   },
-  created() {
-    this.$store.dispatch('post/fetchAllPosts');
+  async created() {
+    await this.$store.dispatch('post/fetchPopularPosts');
+    await this.$store.dispatch('post/fetchRecommendedPost');
   },
 };
 </script>

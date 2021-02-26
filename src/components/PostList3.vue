@@ -1,4 +1,4 @@
-<template>
+<template v-if="posts">
 <v-card>
   <v-list two-line>
       <v-list-item-group
@@ -18,7 +18,7 @@
                 <div>
                   <span>{{formatDate(item.createdAt,{format:'HH:MM'})}}</span>
                   <span>조회{{item.views}}</span>
-                  <span>댓글{{item.comments.length}}</span>
+                  <span>댓글{{item.comments ? item.comments.length : 0}}</span>
                 </div>
 
                 <!-- <v-list-item-subtitle
@@ -51,9 +51,7 @@ import dateMixins from '../mixins/dateMixins';
 
 export default {
   mixins: [dateMixins],
-  props: [
-    'posts',
-  ],
+  props: ['posts'],
   data: () => ({
     selected: [2],
     items: [

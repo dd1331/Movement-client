@@ -4,12 +4,20 @@ export default {
   namespaced: true,
   state: () => ({
     posts: [],
+    popularPosts: [],
+    recommendedPosts: [],
     activePost: null,
     activelikes: [],
   }),
   mutations: {
     setPosts(state, posts) {
       state.posts = posts;
+    },
+    setPopularPosts(state, posts) {
+      state.popularPosts = posts;
+    },
+    setRecommendedPosts(state, posts) {
+      state.recommendedPosts = posts;
     },
     setActivePost(state, post) {
       state.activePost = post;
@@ -30,6 +38,14 @@ export default {
     async fetchPost({ commit }, postId) {
       const { data } = await axios.get(`http://localhost:3000/posts/${postId}`);
       commit('setActivePost', data);
+    },
+    async fetchPopularPosts({ commit }) {
+      const { data } = await axios.get('http://localhost:3000/posts/popular');
+      commit('setPopularPosts', data);
+    },
+    async fetchRecommendedPost({ commit }) {
+      const { data } = await axios.get('http://localhost:3000/posts/recommended');
+      commit('setRecommendedPosts', data);
     },
     async createPost(_, payload) {
       const { data } = await axios.post('http://localhost:3000/posts/create', payload);
@@ -64,6 +80,12 @@ export default {
   getters: {
     getPosts(state) {
       return state.posts;
+    },
+    getPopularPosts(state) {
+      return state.popularPosts;
+    },
+    getRecommendedPost(state) {
+      return state.recommendedPosts;
     },
     getActivePost(state) {
       return state.activePost;

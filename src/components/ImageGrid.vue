@@ -1,16 +1,14 @@
 <template>
   <v-row>
     <v-col
-      v-for="n in 6"
-      :key="n"
+      v-for="(post, index) in posts"
+      :key="index"
       class="ma-0 py-0"
       cols="4"
     >
-      <v-card>
-
+      <v-card @click="$router.push(`/posts/view/${post.id}`)">
         <v-img
-          :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
-          :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
+          :src="post.files[0]? post.files[0].url : 'https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png'"
           aspect-ratio="1"  width="100"
           class="grey lighten-2"
         >
@@ -27,8 +25,14 @@
             </v-row>
           </template> -->
         </v-img>
+
       </v-card>
-      <span>ss</span>
+      <p class="grey--text text--darken-3">{{post.title}}</p>
     </v-col>
   </v-row>
 </template>
+<script>
+export default {
+  props: ['posts'],
+};
+</script>

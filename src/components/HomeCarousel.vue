@@ -19,7 +19,7 @@
           align="center"
           justify="center"
         >
-          <Image-Grid class="ma-1"></Image-Grid>
+          <Image-Grid class="ma-1" :posts="posts"></Image-Grid>
         </v-row>
       </v-sheet>
     </v-carousel-item>
@@ -29,6 +29,7 @@
 import ImageGrid from '@/components/ImageGrid';
 
 export default {
+  props: ['posts'],
   data() {
     return {
       colors: [
