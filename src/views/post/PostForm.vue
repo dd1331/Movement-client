@@ -109,6 +109,11 @@ export default {
           this.$router.push(`/posts/view/${createdPost.id}`);
         }
       }
+      if (this.file) {
+        const { data } = await this.submitFile();
+        this.updatePostInput.url = data.url;
+        this.updatePostInput.fileId = data.id;
+      }
       const updatedPost = await this.$store.dispatch('post/updatePost', this.updatePostInput);
       if (updatedPost) {
         this.$router.push(`/posts/view/${updatedPost.id}`);

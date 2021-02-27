@@ -11,6 +11,7 @@
     </section>
     <section class="content">
       <div>
+        <v-img :src="post.files[0].url"></v-img>
         {{post.content}}
       </div>
       <div class="content-bottom">
