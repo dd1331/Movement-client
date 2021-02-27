@@ -1,38 +1,41 @@
 <template>
   <v-row>
     <v-col
-      v-for="(post, index) in posts"
+      v-for="(item, index) in items"
       :key="index"
       class="ma-0 py-0"
-      cols="4"
+      :cols="cols"
     >
-      <v-card @click="$router.push(`/posts/view/${post.id}`)">
-        <v-img
-          :src="post.files[0]? post.files[0].url : 'https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png'"
+      <v-card @click="click(item)">
+        <v-img v-if="type==='recommended'"
+          :src="item.files[0]? item.files[0].url : 'https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png'"
           aspect-ratio="1"  width="100"
           class="grey lighten-2"
         >
-          <!-- <template v-slot:placeholder>
-            <v-row
-              class="fill-height ma-0"
-              align="center"
-              justify="center"
-            >dasdd
-              <v-progress-circular
-                indeterminate
-                color="grey lighten-5"
-              >123</v-progress-circular>
-            </v-row>
-          </template> -->
         </v-img>
-
+        <v-img v-if="type==='news'"
+          :src="item.image"
+          aspect-ratio="1"  width="150"
+          height="100"
+          class="grey lighten-2"
+        >
+        </v-img>
       </v-card>
-      <p class="grey--text text--darken-3">{{post.title}}</p>
+      <p class="grey--text text--darken-3">{{item.title}}</p>
     </v-col>
   </v-row>
 </template>
 <script>
 export default {
-  props: ['posts'],
+  props: ['items', 'cols', 'type'],
+  methods: {
+    openUrl(url) {
+      window.open(url);
+    },
+    click(item) {
+      if (this.type === 'recommended') this.$router.push(`/posts/view/${item.id}`);
+      if (this.type === 'news') this.openUrl(item.url);
+    },
+  },
 };
 </script>

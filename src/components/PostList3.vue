@@ -1,50 +1,53 @@
 <template v-if="posts">
-<v-card>
-  <v-list two-line>
-      <v-list-item-group
-        v-model="selected"
-        active-class="pink--text"
-        multiple
-      >
-        <template v-for="(item, index) in posts">
-          <v-list-item :key="item.id"
-            @click="$router
-            .push(`/posts/view/${item.id}`)"
-          >
-            <!-- <template v-slot:default="{ active }"> -->
-            <template>
-              <v-list-item-content class="d-flex">
-                <v-list-item-title v-text="item.title"></v-list-item-title>
-                <div>
-                  <span>{{formatDate(item.createdAt,{format:'HH:MM'})}}</span>
-                  <span>조회{{item.views}}</span>
-                  <span>댓글{{item.comments ? item.comments.length : 0}}</span>
-                </div>
+<div>
+  인기글
+  <v-card>
+    <v-list two-line>
+        <v-list-item-group
+          v-model="selected"
+          active-class="pink--text"
+          multiple
+        >
+          <template v-for="(item, index) in posts">
+            <v-list-item :key="item.id"
+              @click="$router
+              .push(`/posts/view/${item.id}`)"
+            >
+              <!-- <template v-slot:default="{ active }"> -->
+              <template>
+                <v-list-item-content class="d-flex">
+                  <v-list-item-title v-text="item.title"></v-list-item-title>
+                  <div>
+                    <span>{{formatDate(item.createdAt,{format:'HH:MM'})}}</span>
+                    <span>조회{{item.views}}</span>
+                    <span>댓글{{item.comments ? item.comments.length : 0}}</span>
+                  </div>
 
-                <!-- <v-list-item-subtitle
-                  class="text--primary"
-                  v-text="item.content"
-                ></v-list-item-subtitle> -->
+                  <!-- <v-list-item-subtitle
+                    class="text--primary"
+                    v-text="item.content"
+                  ></v-list-item-subtitle> -->
 
-                <!-- <v-list-item-subtitle v-text="item.content">
-                </v-list-item-subtitle> -->
-              </v-list-item-content>
+                  <!-- <v-list-item-subtitle v-text="item.content">
+                  </v-list-item-subtitle> -->
+                </v-list-item-content>
 
-              <v-list-item-action>
-                <!-- <v-list-item-action-text v-text="item.title"></v-list-item-action-text> -->
+                <v-list-item-action>
+                  <!-- <v-list-item-action-text v-text="item.title"></v-list-item-action-text> -->
 
-              </v-list-item-action>
-            </template>
-          </v-list-item>
+                </v-list-item-action>
+              </template>
+            </v-list-item>
 
-          <v-divider
-            v-if="index < items.length - 1"
-            :key="index"
-          ></v-divider>
-        </template>
-      </v-list-item-group>
-  </v-list>
+            <v-divider
+              v-if="index < items.length - 1"
+              :key="index"
+            ></v-divider>
+          </template>
+        </v-list-item-group>
+    </v-list>
   </v-card>
+</div>
 </template>
 <script>
 import dateMixins from '../mixins/dateMixins';

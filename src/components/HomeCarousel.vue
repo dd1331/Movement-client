@@ -1,29 +1,32 @@
 <template>
-  <v-carousel
-    cycle
-    height="270"
-    hide-delimiter-background
-    show-arrows-on-hover
-    interval="1000000"
-  >
-    <v-carousel-item
-      v-for="(slide, i) in slides"
-      :key="i"
+  <div>
+    추천글
+    <v-carousel
+      cycle
+      height="270"
+      hide-delimiter-background
+      show-arrows-on-hover
+      interval="1000000"
     >
-      <v-sheet
-        :color="colors[i]"
-        height="100%"
+      <v-carousel-item
+        v-for="(slide, i) in slides"
+        :key="i"
       >
-        <v-row
-          class="fill-height ma-0"
-          align="center"
-          justify="center"
+        <v-sheet
+          :color="colors[i]"
+          height="100%"
         >
-          <Image-Grid class="ma-1" :posts="posts"></Image-Grid>
-        </v-row>
-      </v-sheet>
-    </v-carousel-item>
-  </v-carousel>
+          <v-row
+            class="fill-height ma-0"
+            align="center"
+            justify="center"
+          >
+            <Image-Grid class="ma-1" :items="posts" cols="4" type="recommended"></Image-Grid>
+          </v-row>
+        </v-sheet>
+      </v-carousel-item>
+    </v-carousel>
+  </div>
 </template>
 <script>
 import ImageGrid from '@/components/ImageGrid';
