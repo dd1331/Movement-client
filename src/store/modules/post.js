@@ -73,6 +73,7 @@ export default {
     },
     async dislikePost({ commit }, payload) {
       const updatedPost = await axios.post('http://localhost:3000/posts/dislike', payload);
+      console.log(updatedPost);
       commit('setActiveLikes', updatedPost.data);
       return updatedPost;
     },

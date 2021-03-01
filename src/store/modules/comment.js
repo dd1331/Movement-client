@@ -23,10 +23,10 @@ export default {
       dispatch('post/fetchPost', payload.postId, { root: true });
     },
     async deleteComment({ dispatch }, payload) {
-      const { commentId } = payload;
-      const { data } = await axios.delete(`http://localhost:3000/comments/${commentId}`);
+      const { commentId, postId } = payload;
+      await axios.delete(`http://localhost:3000/comments/${commentId}`);
       // TODO mutate only comments in post object ?
-      dispatch('post/fetchPost', data.postId, { root: true });
+      dispatch('post/fetchPost', postId, { root: true });
     },
   },
   getters: {

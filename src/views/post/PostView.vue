@@ -1,29 +1,54 @@
 <template>
   <div v-if="post && post.poster" class="post-view">
-    <section class="title border post-title">
-      {{post.title}}
-
-      {{formatDate(post.createdAt)}}
-      조회 {{post.views}}
-      작성자 {{post.poster.userName}}
-      <span @click="edit">수정</span>
-      <span @click="remove">삭제</span>
+    <section>
+      <h2>
+        {{post.title}}
+      </h2>
+      <p class="ma-0 font-weight-medium">
+        {{post.poster.userName}}
+      </p>
+      <div class="d-flex justify-space-between">
+        {{post.views}} views
+        ・
+        {{formatDate(post.createdAt, {format:'M.D HH:MM'})}}
+        <div>
+          <v-icon @click="edit">
+            mdi-pencil
+          </v-icon>
+          <v-icon @click="remove">
+            mdi-delete
+          </v-icon>
+        </div>
+      </div>
     </section>
+    <v-divider class="my-6"></v-divider>
     <section class="content">
       <div>
-        <v-img :src="post.files[0].url"></v-img>
+        <v-img v-if="post.files[0]" :src="post.files[0].url"></v-img>
         {{post.content}}
       </div>
-      <div class="content-bottom">
-        <v-btn :color="likeStatus && likeStatus !== null ? 'pink accent-1' : ''" @click="likePost">
-          좋아요{{likes.length}}
+      <div class="justify-center d-flex ml-n4">
+        <v-btn icon :color="likeStatus && likeStatus !== null ? 'blue lighten-1' : ''">
+          <v-icon
+            @click="likePost">
+            mdi-thumb-up
+          </v-icon>
         </v-btn>
-        <v-btn :color="!likeStatus && likeStatus !== null ? 'pink accent-1' : ''"
-          @click="dislikePost">
-          싫어요{{dislikes.length}}
+        <span class="mt-1">
+          {{likes.length}}
+        </span>
+        <v-btn icon>
+          <v-icon :color="!likeStatus && likeStatus !== null ? 'pink accent-1' : ''"
+            @click="dislikePost">
+            mdi-thumb-down
+          </v-icon>
         </v-btn>
+        <span class="mt-1">
+          {{dislikes.length}}
+        </span>
       </div>
     </section>
+    <v-divider class="my-6"></v-divider>
     <section>
       <comment-list></comment-list>
     </section>
@@ -109,18 +134,12 @@ export default {
   },
   activated() {
     this.setLikeStatus();
+    console.log('test1', this.$store.getters['post/getActivePost']);
+  },
+  mounted() {
+    console.log('test2', this.$store.getters['post/getActivePost']);
   },
 };
 </script>
 <style lang="scss" scoped>
-.border {
-  border: solid
-}
-.post-title {
-  height: 5rem
-}
-.content-bottom {
-  display: flex;
-  justify-content: center;
-}
 </style>
