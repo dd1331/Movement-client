@@ -1,9 +1,8 @@
 <template>
   <div>
-    추천글
     <v-carousel
       cycle
-      height="270"
+      height="300"
       hide-delimiter-background
       show-arrows-on-hover
       interval="1000000"
@@ -12,18 +11,21 @@
         v-for="(slide, i) in slides"
         :key="i"
       >
-        <v-sheet
-          :color="colors[i]"
-          height="100%"
-        >
+        <div class="">
+          <v-icon class="grey--text text--darken-1 mb-1">
+            mdi-trophy
+          </v-icon>
+          <h4 class="grey--text text--darken-3 d-inline">
+            추천
+          </h4>
+        </div>
           <v-row
             class="fill-height ma-0"
             align="center"
             justify="center"
           >
-            <Image-Grid class="ma-1" :items="posts" cols="4" type="recommended"></Image-Grid>
+            <Image-Grid :items="posts" cols="4" type="recommended"></Image-Grid>
           </v-row>
-        </v-sheet>
       </v-carousel-item>
     </v-carousel>
   </div>

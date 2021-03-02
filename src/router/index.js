@@ -73,8 +73,20 @@ router.beforeEach(async (to, from, next) => {
   if (!currentCategory.title) {
     await store.dispatch('common/fetchCategories');
   }
+  if (to.name === 'Home' && !to.params.category) {
+    store.commit('common/setCurrentCategory', {});
+  }
+
+  // TODO choose which one to use. either params or query.
+  // its considered to use query rather than params atm
   if (to.params.category !== from.params.category) {
     const payload = store.getters['common/getCategories'].find((category) => category.title === to.params.category);
+    if (payload) {
+      store.commit('common/setCurrentCategory', payload);
+    }
+  }
+  if (to.query.category !== from.query.category) {
+    const payload = store.getters['common/getCategories'].find((category) => category.title === to.query.category);
     if (payload) {
       store.commit('common/setCurrentCategory', payload);
     }

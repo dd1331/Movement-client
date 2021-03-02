@@ -1,8 +1,11 @@
 <template>
   <div>
-    <h1 v-if="category">{{category.koTitle}}</h1>
-    <v-spacer></v-spacer>
-    <v-btn v-if="!isNews" @click="$router.push('/posts/form')">글쓰기</v-btn>
+    <section class="d-flex">
+      <h1 v-if="currentCategory">{{currentCategory.koTitle}}</h1>
+      <v-spacer></v-spacer>
+      <v-btn v-if="!isNews" small="" @click="$router.push('/posts/form')">글쓰기</v-btn>
+
+    </section>
     <news-list v-if="isNews"></news-list>
     <post-list-component v-else :posts="posts"></post-list-component>
   </div>
@@ -13,20 +16,20 @@ import NewsList from '../../components/NewsList';
 
 export default {
   data() {
-    return {};
+    return { };
   },
-  created() {
+  async created() {
+    await this.$store.dispatch('post/fetchCategorizedPosts', this.currentCategory);
   },
   beforeRouteUpdate(_, __, next) {
-    const category = this.$store.getters['common/getCurrentCategory'];
-    this.$store.dispatch('post/fetchCategorizedPosts', category);
+    this.$store.dispatch('post/fetchCategorizedPosts', this.currentCategory);
     next();
   },
   computed: {
     isNews() {
       return this.$route.params.category === 'news';
     },
-    category() {
+    currentCategory() {
       return this.$store.getters['common/getCurrentCategory'];
     },
     posts() {

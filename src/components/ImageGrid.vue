@@ -6,7 +6,7 @@
       class="ma-0 py-0"
       :cols="cols"
     >
-      <v-card @click="click(item)">
+      <div @click="click(item)">
         <v-img v-if="type==='recommended'"
           :src="item.files[0]? item.files[0].url : 'https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png'"
           aspect-ratio="1"  width="100"
@@ -20,7 +20,7 @@
           class="grey lighten-2"
         >
         </v-img>
-      </v-card>
+      </div>
       <p class="grey--text text--darken-3">{{item.title}}</p>
     </v-col>
   </v-row>

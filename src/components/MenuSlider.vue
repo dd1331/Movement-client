@@ -1,8 +1,9 @@
 <template>
   <v-card>
-    <v-tabs
+    <v-tabs v-model="categoryId"
       dark
       background-color="primary"
+      :optional="categoryId === -1"
       show-arrows
     >
     <!-- TODO check what v-tabs-slider is for -->
@@ -26,6 +27,7 @@ export default {
   mixins: [translateMixins],
   data() {
     return {
+      categoryId: null,
     };
   },
   computed: {
@@ -38,6 +40,11 @@ export default {
     },
     currentCategory() {
       return this.$store.getters['common/getCurrentCategory'];
+    },
+  },
+  watch: {
+    currentCategory(category) {
+      this.categoryId = category.id ? category.id - 1 : -1;
     },
   },
   methods: {

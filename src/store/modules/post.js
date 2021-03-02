@@ -4,8 +4,9 @@ export default {
   namespaced: true,
   state: () => ({
     posts: [],
-    popularPosts: [],
     recommendedPosts: [],
+    popularPosts: [],
+    recentPosts: [],
     activePost: null,
     activelikes: [],
   }),
@@ -13,11 +14,14 @@ export default {
     setPosts(state, posts) {
       state.posts = posts;
     },
+    setRecommendedPosts(state, posts) {
+      state.recommendedPosts = posts;
+    },
     setPopularPosts(state, posts) {
       state.popularPosts = posts;
     },
-    setRecommendedPosts(state, posts) {
-      state.recommendedPosts = posts;
+    setRecentPosts(state, posts) {
+      state.recentPosts = posts;
     },
     setActivePost(state, post) {
       state.activePost = post;
@@ -39,13 +43,17 @@ export default {
       const { data } = await axios.get(`http://localhost:3000/posts/${postId}`);
       commit('setActivePost', data);
     },
+    async fetchRecommendedPost({ commit }) {
+      const { data } = await axios.get('http://localhost:3000/posts/recommended');
+      commit('setRecommendedPosts', data);
+    },
     async fetchPopularPosts({ commit }) {
       const { data } = await axios.get('http://localhost:3000/posts/popular');
       commit('setPopularPosts', data);
     },
-    async fetchRecommendedPost({ commit }) {
-      const { data } = await axios.get('http://localhost:3000/posts/recommended');
-      commit('setRecommendedPosts', data);
+    async fetchRecentPosts({ commit }) {
+      const { data } = await axios.get('http://localhost:3000/posts/recent');
+      commit('setRecentPosts', data);
     },
     async createPost(_, payload) {
       const { data } = await axios.post('http://localhost:3000/posts/create', payload);
@@ -80,13 +88,17 @@ export default {
   },
   getters: {
     getPosts(state) {
+      console.log('ts', state);
       return state.posts;
+    },
+    getRecommendedPost(state) {
+      return state.recommendedPosts;
     },
     getPopularPosts(state) {
       return state.popularPosts;
     },
-    getRecommendedPost(state) {
-      return state.recommendedPosts;
+    getRecentPosts(state) {
+      return state.recentPosts;
     },
     getActivePost(state) {
       return state.activePost;

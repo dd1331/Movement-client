@@ -1,6 +1,11 @@
 <template>
   <div class="my-5">
-    뉴스
+    <v-icon class="mb-1">
+      mdi-newspaper-variant
+    </v-icon>
+    <h4 class="grey--text text--darken-3 d-inline">
+      뉴스
+    </h4>
     <v-carousel
     cycle
     height="150"
@@ -13,20 +18,13 @@
       v-for="(slide, i) in newsSplited"
       :key="i"
     >
-    <v-card>
-      <v-sheet
-        height="100%"
-        color="white"
+      <v-row
+        class="fill-height ma-0"
+        align="center"
+        justify="center"
       >
-        <v-row
-          class="fill-height ma-0"
-          align="center"
-          justify="center"
-        >
-          <Image-Grid class="ma-1" :items="newsSplited[i]" cols="6" type='news'></Image-Grid>
-        </v-row>
-      </v-sheet>
-    </v-card>
+        <Image-Grid class="ma-1" :items="newsSplited[i]" cols="6" type='news'></Image-Grid>
+      </v-row>
     </v-carousel-item>
   </v-carousel>
   </div>

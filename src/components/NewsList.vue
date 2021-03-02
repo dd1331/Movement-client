@@ -1,5 +1,5 @@
 <template>
-  <v-list three-line>
+  <v-list>
     <template v-for="(item, index) in news">
       <v-divider
         v-if="index % 2 !== 0"
@@ -21,7 +21,6 @@
           <v-list-item-subtitle class="d-none d-sm-block">{{item.summary}}</v-list-item-subtitle>
           <v-list-item-subtitle>{{item.writer}}</v-list-item-subtitle>
           <v-list-item-subtitle>{{formatDate(item.writtenAt)}}</v-list-item-subtitle>
-          <!-- <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle> -->
         </v-list-item-content>
       </v-list-item>
     </template>

@@ -1,123 +1,47 @@
 <template v-if="posts">
 <div>
-  인기글
-  <v-card>
-    <v-list two-line>
-        <v-list-item-group
-          v-model="selected"
-          active-class="pink--text"
-          multiple
-        >
-          <template v-for="(item, index) in posts">
-            <v-list-item :key="item.id"
-              @click="$router
-              .push(`/posts/view/${item.id}`)"
-            >
-              <!-- <template v-slot:default="{ active }"> -->
-              <template>
-                <v-list-item-content class="d-flex">
-                  <v-list-item-title v-text="item.title"></v-list-item-title>
-                  <div>
-                    <span>{{formatDate(item.createdAt,{format:'HH:MM'})}}</span>
-                    <span>조회{{item.views}}</span>
-                    <span>댓글{{item.comments ? item.comments.length : 0}}</span>
-                  </div>
-
-                  <!-- <v-list-item-subtitle
-                    class="text--primary"
-                    v-text="item.content"
-                  ></v-list-item-subtitle> -->
-
-                  <!-- <v-list-item-subtitle v-text="item.content">
-                  </v-list-item-subtitle> -->
-                </v-list-item-content>
-
-                <v-list-item-action>
-                  <!-- <v-list-item-action-text v-text="item.title"></v-list-item-action-text> -->
-
-                </v-list-item-action>
-              </template>
-            </v-list-item>
-
-            <v-divider
-              v-if="index < items.length - 1"
-              :key="index"
-            ></v-divider>
-          </template>
-        </v-list-item-group>
-    </v-list>
-  </v-card>
+  <v-list class="pa-0">
+    <template v-for="(item, index) in posts">
+      <v-list-item :key="item.id" class="px-1"
+        @click="$router
+        .push({path:`/posts/view/${item.id}`, query:{ category: item.category } })"
+      >
+        <template>
+          <v-list-item-content class="d-flex">
+            <p class="grey--text" v-if="category">
+              {{titleToKorean(item.category)}}
+            </p>
+            <div class="d-flex">
+              <v-icon v-if="item.files && item.files.length > 0" small class=" mr-1">
+                mdi-image
+              </v-icon>
+              <p class="my-1">{{item.title}}</p>
+            </div>
+            <div>
+              <span class="mr-2" v-if="item.poster">{{item.poster.userName}}</span>
+              <span class="mr-2">{{formatDate(item.createdAt,{format:'HH:MM'})}}</span>
+              <span class="mr-2">조회 {{item.views}}</span>
+              <span class="mr-2">댓글 {{item.comments ? item.comments.length : 0}}</span>
+            </div>
+          </v-list-item-content>
+        </template>
+      </v-list-item>
+      <v-divider
+        v-if="index < posts.length - 1"
+        :key="index"
+      ></v-divider>
+    </template>
+  </v-list>
 </div>
 </template>
 <script>
 import dateMixins from '../mixins/dateMixins';
+import translateMixins from '../mixins/translateMixins';
 
 export default {
-  mixins: [dateMixins],
-  props: ['posts'],
+  mixins: [dateMixins, translateMixins],
+  props: ['posts', 'category'],
   data: () => ({
-    selected: [2],
-    items: [
-      {
-        action: '15 min',
-        headline: 'Brunch this weekend?',
-        subtitle: 'I\'ll be in your neighborhood doing errands this weekend. Do you want to hang out?',
-        title: 'Ali Connors',
-      },
-      {
-        action: '2 hr',
-        headline: 'Summer BBQ',
-        subtitle: 'Wish I could come, but I\'m out of town this weekend.',
-        title: 'me, Scrott, Jennifer',
-      },
-      {
-        action: '6 hr',
-        headline: 'Oui oui',
-        subtitle: 'Do you have Paris recommendations? Have you ever been?',
-        title: 'Sandra Adams',
-      },
-      {
-        action: '12 hr',
-        headline: 'Birthday gift',
-        subtitle: 'Have any ideas about what we should get Heidi for her birthday?',
-        title: 'Trevor Hansen',
-      },
-      {
-        action: '18hr',
-        headline: 'Recipe to try',
-        subtitle: 'We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-        title: 'Britta Holt',
-      },
-      {
-        action: '18dhr',
-        headline: 'Redcipe to try',
-        subtitle: 'Wde should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-        title: 'Brittda Holt',
-      },
-      {
-        action: '18dhr',
-        headline: 'Redcipe to try',
-        subtitle: 'Wed should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-        title: 'aritta Holt',
-      },
-      {
-        action: '1a8hr',
-        headline: 'Rescipe to try',
-        subtitle: 'Wes should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-        title: 'Brista Holt',
-      },
-      {
-        action: '18hfr',
-        headline: 'Recfipe to try',
-        subtitle: 'Wef should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-        title: 'Britfta Holt',
-      },
-    ],
   }),
-  computed: {
-    currentCategory() {
-      return this.$store.getters['common/getCurrentCategory'];
-    },
-  },
 };
 </script>
