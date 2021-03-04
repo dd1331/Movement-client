@@ -18,9 +18,14 @@ export default {
       return updatedPost;
     },
     async createComment({ dispatch }, payload) {
-      await axios.post('http://localhost:3000/comments', payload);
+      await axios.post('http://localhost:3000/comments/create', payload);
       // TODO mutate only comments in post object ?
       dispatch('post/fetchPost', payload.postId, { root: true });
+    },
+    async fetchChildComment(_, id) {
+      // TODO set it in vuex store ?
+      const { data } = await axios.get(`http://localhost:3000/comments/fetch-children/${id}`);
+      return data;
     },
     async deleteComment({ dispatch }, payload) {
       const { commentId, postId } = payload;

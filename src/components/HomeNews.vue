@@ -1,5 +1,5 @@
 <template>
-  <div class="my-5">
+  <div class="my-3">
     <v-icon class="mb-1">
       mdi-newspaper-variant
     </v-icon>
@@ -7,23 +7,24 @@
       뉴스
     </h4>
     <v-carousel
-    cycle
-    height="150"
-    hide-delimiter-background
-    show-arrows-on-hover
-    interval="1000000"
-    delimiter-icon="mdi-minus"
-  >
-    <v-carousel-item
-      v-for="(slide, i) in newsSplited"
-      :key="i"
+      class="mt-2"
+      cycle
+      height="150"
+      hide-delimiter-background
+      show-arrows-on-hover
+      interval="1000000"
+      delimiter-icon="mdi-minus"
     >
+    <v-carousel-item
+        v-for="(slide, i) in newsSplited"
+        :key="i"
+      >
       <v-row
         class="fill-height ma-0"
         align="center"
         justify="center"
       >
-        <Image-Grid class="ma-1" :items="newsSplited[i]" cols="6" type='news'></Image-Grid>
+        <Image-Grid :items="newsSplited[i]" cols="6" type='news'></Image-Grid>
       </v-row>
     </v-carousel-item>
   </v-carousel>

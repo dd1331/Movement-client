@@ -19,75 +19,32 @@
       </v-col>
      </v-row>
     </v-container>
-    <div v-for="comment in post.comments" v-bind:key="comment.id">
+    <div v-for="comment in comments" v-bind:key="comment.id">
       <ul class="pa-0">
-          <div class="d-flex">
-            <v-avatar
-              class="mt-1"
-              color="primary"
-              size="45"
-            >
-            <img v-if="comment.commenter.avatar"
-              src="https://cdn.vuetifyjs.com/images/john.jpg"
-              alt="John"
-            >
-            <span v-else class="white--text headline">
-              {{comment.commenter.userName.slice(0,1).toUpperCase()}}
-            </span>
-            </v-avatar>
-            <v-container fluid class="pt-0 pl-5 pr-0">
-              <div class="d-flex justify-space-between">
-                {{comment.commenter.userName}}
-                ・
-                {{formatDate(comment.createdAt,{format:'M.D HH:MM'})}}
-              <div>
-                <v-icon @click="deleteComment(comment.id)">
-                  mdi-pencil
-                </v-icon>
-                <v-icon @click="deleteComment(comment.id)">
-                  mdi-delete
-                </v-icon>
-              </div>
-              </div>
-              <span>
-                {{comment.content}}
-              </span>
-              <div class="ml-n1">
-                <v-btn icon>
-                  <v-icon @click="deleteComment(comment.id)">
-                    mdi-thumb-up
-                  </v-icon>
-                </v-btn>
-                {{comment.like}}
-                <v-btn icon>
-                  <v-icon @click="deleteComment(comment.id)">
-                    mdi-thumb-down
-                  </v-icon>
-                </v-btn>
-                {{comment.dislike}}
-                <v-btn icon>
-                  <v-icon @click="deleteComment(comment.id)">
-                    mdi-comment
-                  </v-icon>
-                </v-btn>
-              </div>
-            </v-container>
-          </div>
+        <comment :comment="comment" @toggleComment="toggleComment" ></comment>
+          <v-container v-if="comment.isOpen" class="pl-15 pr-0 py-0">
+          <comment v-for="child in comment.child" :comment="child"
+           v-bind:key="child.id" size="30"></comment>
+          </v-container>
       </ul>
     </div>
   </div>
 </template>
 <script>
-import dateMixins from '../mixins/dateMixins';
+
+import Comment from './Comment';
 
 export default {
-  mixins: [dateMixins],
+  components: { Comment },
   data() {
     return {
       content: '',
     };
   },
   computed: {
+    comments() {
+      return this.post.comments;
+    },
     post() {
       return this.$store.getters['post/getActivePost'];
     },
@@ -96,6 +53,20 @@ export default {
     },
   },
   methods: {
+    toggleComment(parent) {
+      if (!parent.isOpen) {
+        this.fetchChildComment(parent);
+        return;
+      }
+      const targetComment = this.post.comments.find((comment) => comment.id === parent.id);
+      this.$set(targetComment, 'isOpen', false);
+    },
+    async fetchChildComment(parent) {
+      const targetComment = this.post.comments.find((comment) => comment.id === parent.id);
+      const childComments = await this.$store.dispatch('comment/fetchChildComment', targetComment.id);
+      this.$set(targetComment, 'child', childComments);
+      this.$set(targetComment, 'isOpen', true);
+    },
     async createComment() {
       const payload = {
         content: this.content,
