@@ -43,12 +43,15 @@
           </v-icon>
         </v-btn>
         {{comment.dislike}}
-        <v-btn icon>
-          <v-icon @click="deleteComment(comment.id)">
+        <v-btn icon @click="isInputOpen = !isInputOpen">
+          <v-icon>
             mdi-comment
           </v-icon>
         </v-btn>
       </div>
+      <comment-input v-if="isInputOpen" type="child" :parent="comment"
+        @onCreated="onCreated">
+      </comment-input>
       <span v-if="comment.childCount" @click="$emit('toggleComment', comment)"
         class="font-weight-bold">{{comment.childCount}}개 더보기
       </span>
@@ -57,9 +60,21 @@
 </template>
 <script>
 import dateMixins from '../mixins/dateMixins';
+import CommentInput from './CommentInput';
 
 export default {
   mixins: [dateMixins],
   props: ['comment', 'size'],
+  components: { CommentInput },
+  data() {
+    return {
+      isInputOpen: false,
+    };
+  },
+  methods: {
+    onCreated() {
+      this.isInputOpen = !this.isInputOpen;
+    },
+  },
 };
 </script>

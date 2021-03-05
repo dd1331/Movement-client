@@ -22,9 +22,16 @@ export default {
       // TODO mutate only comments in post object ?
       dispatch('post/fetchPost', payload.postId, { root: true });
     },
-    async fetchChildComment(_, id) {
+    async createChildComment({ dispatch }, payload) {
+      await axios.post('http://localhost:3000/comments/create-child', payload.comment);
+      dispatch('fetchChildComment', payload.comment.parentId);
+      // TODO mutate only comments in post object ?
+    },
+
+    async fetchChildComment({ commit }, id) {
       // TODO set it in vuex store ?
       const { data } = await axios.get(`http://localhost:3000/comments/fetch-children/${id}`);
+      commit('post/setChildComments', { childComments: data, id }, { root: true });
       return data;
     },
     async deleteComment({ dispatch }, payload) {

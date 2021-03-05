@@ -29,6 +29,11 @@ export default {
     setActiveLikes(state, likes) {
       state.activePost.likes = likes;
     },
+    setChildComments(state, payload) {
+      const parentComment = state.activePost.comments.find((comment) => comment.id === payload.id);
+      parentComment.child = payload.childComments;
+      parentComment.childCount = parentComment.child.length;
+    },
   },
   actions: {
     async fetchAllPosts({ commit }) {
@@ -88,7 +93,6 @@ export default {
   },
   getters: {
     getPosts(state) {
-      console.log('ts', state);
       return state.posts;
     },
     getRecommendedPost(state) {
