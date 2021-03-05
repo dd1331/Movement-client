@@ -71,9 +71,21 @@ export default {
       isInputOpen: false,
     };
   },
+  computed: {
+    post() {
+      return this.$store.getters['post/getActivePost'];
+    },
+  },
   methods: {
     onCreated() {
-      this.isInputOpen = !this.isInputOpen;
+      // this.isInputOpen = !this.isInputOpen;
+    },
+    deleteComment(commentId) {
+      const payload = {
+        commentId,
+        postId: this.post.id,
+      };
+      this.$store.dispatch('comment/deleteComment', payload);
     },
   },
 };

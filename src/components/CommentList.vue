@@ -42,14 +42,6 @@ export default {
       await this.$store.dispatch('comment/fetchChildComment', targetComment.id);
       this.$set(targetComment, 'isOpen', true);
     },
-
-    deleteComment(commentId) {
-      const payload = {
-        commentId,
-        postId: this.post.id,
-      };
-      this.$store.dispatch('comment/deleteComment', payload);
-    },
   },
 };
 </script>
