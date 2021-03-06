@@ -72,7 +72,7 @@ export default {
       try {
         // TODO replace temperal return value
         const res = payload.id;
-        // const res = await axios.delete(`http://localhost:3000/posts/${id}`);
+        // const res = await axios.delete(`http://localhost:3000/posts/${payload.id}`);
         dispatch('fetchCategorizedPosts', { title: payload.category });
         return res;
       } catch (error) {

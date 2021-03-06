@@ -40,6 +40,10 @@ export default {
       // TODO mutate only comments in post object ?
       dispatch('post/fetchPost', postId, { root: true });
     },
+    async deleteChildComment(_, payload) {
+      const { commentId } = payload;
+      await axios.delete(`http://localhost:3000/comments/child/${commentId}`);
+    },
   },
   getters: {
   },

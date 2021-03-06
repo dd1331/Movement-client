@@ -19,12 +19,8 @@
         ・
         {{formatDate(comment.createdAt,{format:'M.D HH:MM'})}}
       <div>
-        <v-icon @click="deleteComment(comment.id)">
-          mdi-pencil
-        </v-icon>
-        <!-- <v-icon @click="deleteComment(comment.id)">
-          mdi-delete
-        </v-icon> -->
+        <option-menu @onEdit="deleteComment(comment.id)"
+          @onDelete="deleteComment(comment.id)"></option-menu>
       </div>
       </div>
       <span>
@@ -43,7 +39,7 @@
           </v-icon>
         </v-btn>
         {{comment.dislike}}
-        <v-btn icon @click="isInputOpen = !isInputOpen">
+        <v-btn v-if="type !== 'child'" icon @click="isInputOpen = !isInputOpen">
           <v-icon>
             mdi-comment
           </v-icon>
@@ -52,8 +48,8 @@
       <comment-input v-if="isInputOpen" type="child" :parent="comment"
         @onCreated="onCreated">
       </comment-input>
-      <span v-if="comment.childCount" @click="$emit('toggleComment', comment)"
-        class="font-weight-bold">{{comment.childCount}}개 더보기
+      <span v-if="comment.childCount " @click="$emit('toggleComment', comment)"
+        class="font-weight-bold">{{comment.childCount}}개 {{comment.isOpen ? '숨기기' : '더보기'}}
       </span>
     </v-container>
   </div>
@@ -61,11 +57,12 @@
 <script>
 import dateMixins from '../mixins/dateMixins';
 import CommentInput from './CommentInput';
+import OptionMenu from './OptionMenu';
 
 export default {
   mixins: [dateMixins],
-  props: ['comment', 'size'],
-  components: { CommentInput },
+  props: ['comment', 'size', 'type'],
+  components: { CommentInput, OptionMenu },
   data() {
     return {
       isInputOpen: false,
@@ -85,6 +82,10 @@ export default {
         commentId,
         postId: this.post.id,
       };
+      if (this.type === 'child') {
+        this.$store.dispatch('comment/deleteChildComment', payload);
+        return;
+      }
       this.$store.dispatch('comment/deleteComment', payload);
     },
   },

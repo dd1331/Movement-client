@@ -53,11 +53,18 @@ export default {
       };
       const childComments = await this.$store.dispatch('comment/createChildComment', payload);
       this.$set(this.parent, 'child', childComments);
+      this.toggleComment(this.parent);
       this.clearAll();
     },
     clearAll() {
       this.content = '';
       this.$emit('onCreated');
+    },
+    toggleComment(parent) {
+      const targetComment = this.post.comments.find((comment) => comment.id === parent.id);
+      if (!parent.isOpen) {
+        this.$set(targetComment, 'isOpen', true);
+      }
     },
   },
   computed: {

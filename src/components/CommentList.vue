@@ -5,7 +5,7 @@
       <ul class="pa-0">
         <comment :comment="comment" @toggleComment="toggleComment" ></comment>
           <v-container v-if="comment.isOpen" class="pl-15 pr-0 py-0">
-            <comment v-for="child in comment.child" :comment="child"
+            <comment v-for="child in comment.child" :comment="child" type="child"
               v-bind:key="child.id" size="30">
             </comment>
           </v-container>

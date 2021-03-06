@@ -12,12 +12,8 @@
         ・
         {{formatDate(post.createdAt, {format:'M.D HH:MM'})}}
         <div>
-          <v-icon @click="edit">
-            mdi-pencil
-          </v-icon>
-          <v-icon @click="remove">
-            mdi-delete
-          </v-icon>
+          <option-menu @onEdit="edit"
+          @onDelete="remove"></option-menu>
         </div>
       </div>
     </section>
@@ -56,11 +52,12 @@
 </template>
 <script>
 import dateMixins from '../../mixins/dateMixins';
-import commentList from '../../components/CommentList';
+import CommentList from '../../components/CommentList';
+import OptionMenu from '../../components/OptionMenu';
 
 export default {
   mixins: [dateMixins],
-  components: { commentList },
+  components: { CommentList, OptionMenu },
   computed: {
     post() {
       return this.$store.getters['post/getActivePost'];
