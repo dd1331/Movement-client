@@ -48,7 +48,7 @@
       <comment-input v-if="isInputOpen" type="child" :parent="comment"
         @onCreated="onCreated">
       </comment-input>
-      <span v-if="comment.childCount " @click="$emit('toggleComment', comment)"
+      <span v-if="comment.childCount" @click="$emit('toggleComment', comment)"
         class="font-weight-bold">{{comment.childCount}}개 {{comment.isOpen ? '숨기기' : '더보기'}}
       </span>
     </v-container>
@@ -84,6 +84,9 @@ export default {
       };
       if (this.type === 'child') {
         this.$store.dispatch('comment/deleteChildComment', payload);
+        // const target = this.post.comments.find
+        // ((comment) => comment.id === this.comment.parentId);
+        // console.log('target', target);
         return;
       }
       this.$store.dispatch('comment/deleteComment', payload);
