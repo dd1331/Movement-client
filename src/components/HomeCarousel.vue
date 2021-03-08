@@ -19,13 +19,16 @@
             추천
           </h4>
         </div>
-          <v-row
+          <!-- <v-row
             class="fill-height ma-0"
             align="center"
             justify="center"
-          >
+          > -->
+          <div class="">
+
             <Image-Grid :items="posts" cols="4" type="recommended"></Image-Grid>
-          </v-row>
+          </div>
+          <!-- </v-row> -->
       </v-carousel-item>
     </v-carousel>
   </div>

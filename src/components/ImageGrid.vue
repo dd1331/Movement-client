@@ -1,12 +1,12 @@
 <template>
-  <v-row>
+  <v-row class="mt-3">
     <v-col
       v-for="(item, index) in items"
       :key="index"
-      class="ma-0 py-0"
+      class="ma-0 pa-0 justify-space-between"
       :cols="cols"
     >
-      <div @click="click(item)">
+      <v-container @click="click(item)" class="py-0">
         <v-img v-if="type==='recommended'"
           :src="item.files[0]? item.files[0].url : 'https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png'"
           aspect-ratio="1"  width="100"
@@ -20,8 +20,8 @@
           class="grey lighten-2"
         >
         </v-img>
-      </div>
-      <p class="grey--text text--darken-3">{{item.title}}</p>
+        <p class="grey--text text--darken-3 text-truncate ma-0">{{item.title}}</p>
+      </v-container>
     </v-col>
   </v-row>
 </template>
