@@ -28,17 +28,18 @@
       </span>
       <div class="ml-n1">
         <v-btn icon>
-          <v-icon @click="deleteComment(comment.id)">
+          <v-icon @click="likeComment(comment.id)"
+            :color="likeStatus && likeStatus !== null ? 'blue lighten-1' : ''">
             mdi-thumb-up
-          </v-icon>
+          </v-icon>{{likes.length}}
         </v-btn>
-        {{comment.like}}
         <v-btn icon>
-          <v-icon @click="deleteComment(comment.id)">
+          <v-icon @click="dislikeComment(comment.id)"
+            :color="!likeStatus && likeStatus !== null ? 'pink accent-1' : ''"
+          >
             mdi-thumb-down
-          </v-icon>
+          </v-icon>{{dislikes.length}}
         </v-btn>
-        {{comment.dislike}}
         <v-btn v-if="type !== 'child'" icon @click="isInputOpen = !isInputOpen">
           <v-icon>
             mdi-comment
@@ -66,14 +67,49 @@ export default {
   data() {
     return {
       isInputOpen: false,
+      likeStatus: null,
     };
   },
   computed: {
     post() {
       return this.$store.getters['post/getActivePost'];
     },
+    user() {
+      return this.$store.getters['auth/getAppUser'];
+    },
+    likes() {
+      return this.comment.likes.filter((like) => like.isLike === true);
+    },
+    dislikes() {
+      return this.comment.likes.filter((like) => like.isLike === false);
+    },
   },
   methods: {
+    setLikeStatus(likes) {
+      const like = likes.find((l) => l.userId === this.user.id);
+      this.likeStatus = like.isLike;
+      // TODO refactor using store
+    },
+    async likeComment() {
+      const payload = {
+        type: this.type === 'childComment' ? 'childComment' : 'comment',
+        isLike: true,
+        targetId: this.comment.id,
+        userId: this.user.id,
+      };
+      const likes = await this.$store.dispatch('comment/likeComment', payload);
+      this.setLikeStatus(likes);
+    },
+    async dislikeComment() {
+      const payload = {
+        type: this.type === 'childComment' ? 'childComment' : 'comment',
+        isLike: false,
+        targetId: this.comment.id,
+        userId: this.user.id,
+      };
+      const likes = await this.$store.dispatch('comment/dislikeComment', payload);
+      this.setLikeStatus(likes);
+    },
     onCreated() {
       // this.isInputOpen = !this.isInputOpen;
     },
@@ -84,9 +120,6 @@ export default {
       };
       if (this.type === 'child') {
         this.$store.dispatch('comment/deleteChildComment', payload);
-        // const target = this.post.comments.find
-        // ((comment) => comment.id === this.comment.parentId);
-        // console.log('target', target);
         return;
       }
       this.$store.dispatch('comment/deleteComment', payload);

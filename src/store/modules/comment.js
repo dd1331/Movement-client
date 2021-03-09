@@ -3,19 +3,40 @@ import axios from 'axios';
 export default {
   namespaced: true,
   state: () => ({
+    activeComments: [],
   }),
   mutations: {
+    setActiveComments(state, payload) {
+      state.activeComments = payload;
+    },
+    updateLikeCount(state, payload) {
+      const target = state.activeComments.find((comment) => comment.id === payload.targetId);
+      target.likes = payload.data;
+    },
+    updateDislikeCount(state, payload) {
+      const target = state.activeComments.find((comment) => comment.id === payload.targetId);
+      target.likes = payload.data;
+    },
+    setChildComments(state, payload) {
+      const parentComment = state.activeComments.find((comment) => comment.id === payload.id);
+      parentComment.child = payload.childComments;
+      parentComment.childCount = parentComment.child.length;
+    },
   },
   actions: {
-    async likePost({ commit }, payload) {
-      const updatedPost = await axios.post('http://localhost:3000/posts/like', payload);
-      commit('setActiveLikes', updatedPost.data);
-      return updatedPost;
+    async fetchActiveComments({ commit }, id) {
+      const { data } = await axios.get(`http://localhost:3000/comments/post/${id}`);
+      commit('setActiveComments', data);
     },
-    async dislikePost({ commit }, payload) {
-      const updatedPost = await axios.post('http://localhost:3000/posts/dislike', payload);
-      commit('setActiveLikes', updatedPost.data);
-      return updatedPost;
+    async likeComment({ commit }, payload) {
+      const { data } = await axios.post('http://localhost:3000/comments/like', payload);
+      commit('updateLikeCount', { targetId: payload.targetId, data });
+      return data;
+    },
+    async dislikeComment({ commit }, payload) {
+      const { data } = await axios.post('http://localhost:3000/comments/dislike', payload);
+      commit('updateDislikeCount', { targetId: payload.targetId, data });
+      return data;
     },
     async createComment({ dispatch }, payload) {
       await axios.post('http://localhost:3000/comments/create', payload);
@@ -31,7 +52,7 @@ export default {
     async fetchChildComment({ commit }, id) {
       // TODO set it in vuex store ?
       const { data } = await axios.get(`http://localhost:3000/comments/fetch-children/${id}`);
-      commit('post/setChildComments', { childComments: data, id }, { root: true });
+      commit('setChildComments', { childComments: data, id });
       return data;
     },
     async deleteComment({ dispatch }, payload) {
@@ -47,5 +68,8 @@ export default {
     },
   },
   getters: {
+    getActiveComments(state) {
+      return state.activeComments;
+    },
   },
 };

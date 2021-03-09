@@ -22,7 +22,6 @@
       <v-row
         class="fill-height ma-0"
         align="center"
-        justify="center"
       >
         <Image-Grid :items="newsSplited[i]" cols="6" type='news'></Image-Grid>
       </v-row>

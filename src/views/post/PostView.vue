@@ -66,16 +66,10 @@ export default {
       return this.$store.getters['auth/getAppUser'];
     },
     likes() {
-      return this.post.likes.filter((like) => {
-        if (like.isLike === true) return like;
-        return null;
-      });
+      return this.post.likes.filter((like) => like.isLike === true);
     },
     dislikes() {
-      return this.post.likes.filter((like) => {
-        if (like.isLike === false) return like;
-        return null;
-      });
+      return this.post.likes.filter((like) => like.isLike === false);
     },
     currentCategory() {
       return this.$store.getters['common/getCurrentCategory'];
@@ -101,7 +95,7 @@ export default {
     },
     async likePost() {
       const payload = {
-        postId: this.post.id,
+        targetId: this.post.id,
         userId: this.user.id,
         type: 'post',
         isLike: true,
@@ -111,7 +105,7 @@ export default {
     },
     async dislikePost() {
       const payload = {
-        postId: this.post.id,
+        targetId: this.post.id,
         userId: this.user.id,
         type: 'post',
         isLike: false,
@@ -129,12 +123,7 @@ export default {
     const postId = this.$route.params.id;
     this.$store.dispatch('post/fetchPost', postId);
   },
-  activated() {
-    this.setLikeStatus();
-    console.log('test1', this.$store.getters['post/getActivePost']);
-  },
   mounted() {
-    console.log('test2', this.$store.getters['post/getActivePost']);
   },
 };
 </script>

@@ -22,7 +22,7 @@ export default {
   components: { Comment, CommentInput },
   computed: {
     comments() {
-      return this.post.comments;
+      return this.$store.getters['comment/getActiveComments'];
     },
     post() {
       return this.$store.getters['post/getActivePost'];

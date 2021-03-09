@@ -29,11 +29,13 @@ export default {
     setActiveLikes(state, likes) {
       state.activePost.likes = likes;
     },
-    setChildComments(state, payload) {
-      const parentComment = state.activePost.comments.find((comment) => comment.id === payload.id);
-      parentComment.child = payload.childComments;
-      parentComment.childCount = parentComment.child.length;
-    },
+    // setChildComments(state, payload) {
+    //   // TODO REMOVE
+    //   const parentComment = state.activePost.comments.
+    // find((comment) => comment.id === payload.id);
+    //   parentComment.child = payload.childComments;
+    //   parentComment.childCount = parentComment.child.length;
+    // },
   },
   actions: {
     async fetchAllPosts({ commit }) {
@@ -44,9 +46,10 @@ export default {
       const { data } = await axios.get(`http://localhost:3000/posts/readAll/${payload.title}`);
       commit('setPosts', data.slice(0, 20));
     },
-    async fetchPost({ commit }, postId) {
+    async fetchPost({ commit, dispatch }, postId) {
       const { data } = await axios.get(`http://localhost:3000/posts/${postId}`);
       commit('setActivePost', data);
+      dispatch('comment/fetchActiveComments', postId, { root: true });
     },
     async fetchRecommendedPost({ commit }) {
       const { data } = await axios.get('http://localhost:3000/posts/recommended');
@@ -86,7 +89,6 @@ export default {
     },
     async dislikePost({ commit }, payload) {
       const updatedPost = await axios.post('http://localhost:3000/posts/dislike', payload);
-      console.log(updatedPost);
       commit('setActiveLikes', updatedPost.data);
       return updatedPost;
     },
