@@ -31,23 +31,22 @@
           <v-icon @click="likeComment(comment.id)"
             :color="likeStatus && likeStatus !== null ? 'blue lighten-1' : ''">
             mdi-thumb-up
-          </v-icon>{{likes.length}}
+          </v-icon>{{comment.likes.filter((like) => like.isLike === true).length}}
         </v-btn>
         <v-btn icon>
           <v-icon @click="dislikeComment(comment.id)"
             :color="!likeStatus && likeStatus !== null ? 'pink accent-1' : ''"
           >
             mdi-thumb-down
-          </v-icon>{{dislikes.length}}
+          </v-icon>{{comment.likes.filter((like) => like.isLike === false).length}}
         </v-btn>
-        <v-btn v-if="type !== 'child'" icon @click="isInputOpen = !isInputOpen">
+        <v-btn v-if="type !== 'childComment'" icon @click="isInputOpen = !isInputOpen">
           <v-icon>
             mdi-comment
           </v-icon>
         </v-btn>
       </div>
-      <comment-input v-if="isInputOpen" type="child" :parent="comment"
-        @onCreated="onCreated">
+      <comment-input v-if="isInputOpen" type="child" :parent="comment">
       </comment-input>
       <span v-if="comment.childCount" @click="$emit('toggleComment', comment)"
         class="font-weight-bold">{{comment.childCount}}개 {{comment.isOpen ? '숨기기' : '더보기'}}
@@ -77,6 +76,7 @@ export default {
     user() {
       return this.$store.getters['auth/getAppUser'];
     },
+    // TODO check if nested computed works. its not atm
     likes() {
       return this.comment.likes.filter((like) => like.isLike === true);
     },
@@ -92,26 +92,29 @@ export default {
     },
     async likeComment() {
       const payload = {
-        type: this.type === 'childComment' ? 'childComment' : 'comment',
-        isLike: true,
-        targetId: this.comment.id,
-        userId: this.user.id,
+        data: {
+          type: this.type === 'childComment' ? 'childComment' : 'comment',
+          isLike: true,
+          targetId: this.comment.id,
+          userId: this.user.id,
+        },
+        parentId: this.comment.parentId,
       };
       const likes = await this.$store.dispatch('comment/likeComment', payload);
       this.setLikeStatus(likes);
     },
     async dislikeComment() {
       const payload = {
-        type: this.type === 'childComment' ? 'childComment' : 'comment',
-        isLike: false,
-        targetId: this.comment.id,
-        userId: this.user.id,
+        data: {
+          type: this.type === 'childComment' ? 'childComment' : 'comment',
+          isLike: false,
+          targetId: this.comment.id,
+          userId: this.user.id,
+        },
+        parentId: this.comment.parentId,
       };
       const likes = await this.$store.dispatch('comment/dislikeComment', payload);
       this.setLikeStatus(likes);
-    },
-    onCreated() {
-      // this.isInputOpen = !this.isInputOpen;
     },
     deleteComment(commentId) {
       const payload = {

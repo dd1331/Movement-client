@@ -51,9 +51,9 @@ export default {
         },
         type: this.type,
       };
-      const childComments = await this.$store.dispatch('comment/createChildComment', payload);
-      this.$set(this.parent, 'child', childComments);
-      this.toggleComment(this.parent);
+      await this.$store.dispatch('comment/createChildComment', payload);
+      // this.$set(this.parent, 'child', childComments);
+      // this.toggleComment(this.parent);
       this.clearAll();
     },
     clearAll() {

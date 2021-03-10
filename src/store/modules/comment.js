@@ -7,20 +7,35 @@ export default {
   }),
   mutations: {
     setActiveComments(state, payload) {
-      state.activeComments = payload;
+      state.activeComments = payload.map((comment) => ({ ...comment, isOpen: false }));
     },
     updateLikeCount(state, payload) {
       const target = state.activeComments.find((comment) => comment.id === payload.targetId);
       target.likes = payload.data;
     },
+    // TODO merge like/dislike
+    updateChildLikeCount(state, payload) {
+      const target = state.activeComments.find((comment) => comment.id === payload.parentId);
+      const childComment = target.child.find((comment) => comment.id === payload.targetId);
+      childComment.likes = payload.data;
+    },
     updateDislikeCount(state, payload) {
       const target = state.activeComments.find((comment) => comment.id === payload.targetId);
       target.likes = payload.data;
+    },
+    updateChildDislikeCount(state, payload) {
+      const target = state.activeComments.find((comment) => comment.id === payload.parentId);
+      const childComment = target.child.find((comment) => comment.id === payload.targetId);
+      childComment.likes = payload.data;
     },
     setChildComments(state, payload) {
       const parentComment = state.activeComments.find((comment) => comment.id === payload.id);
       parentComment.child = payload.childComments;
       parentComment.childCount = parentComment.child.length;
+    },
+    setIsOpen(state, parentId) {
+      const parentComment = state.activeComments.find((comment) => comment.id === parentId);
+      parentComment.isOpen = !parentComment.isOpen;
     },
   },
   actions: {
@@ -29,13 +44,21 @@ export default {
       commit('setActiveComments', data);
     },
     async likeComment({ commit }, payload) {
-      const { data } = await axios.post('http://localhost:3000/comments/like', payload);
-      commit('updateLikeCount', { targetId: payload.targetId, data });
+      const { data } = await axios.post('http://localhost:3000/comments/like', payload.data);
+      if (data[0]?.type === 'childComment') {
+        commit('updateChildLikeCount', { targetId: payload.data.targetId, data, parentId: payload.parentId });
+        return data;
+      }
+      commit('updateLikeCount', { targetId: payload.data.targetId, data });
       return data;
     },
     async dislikeComment({ commit }, payload) {
-      const { data } = await axios.post('http://localhost:3000/comments/dislike', payload);
-      commit('updateDislikeCount', { targetId: payload.targetId, data });
+      const { data } = await axios.post('http://localhost:3000/comments/dislike', payload.data);
+      if (data[0]?.type === 'childComment') {
+        commit('updateChildDislikeCount', { targetId: payload.data.targetId, data, parentId: payload.parentId });
+        return data;
+      }
+      commit('updateDislikeCount', { targetId: payload.data.targetId, data });
       return data;
     },
     async createComment({ dispatch }, payload) {

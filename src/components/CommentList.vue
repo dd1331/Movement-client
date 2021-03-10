@@ -5,7 +5,7 @@
       <ul class="pa-0">
         <comment :comment="comment" @toggleComment="toggleComment" ></comment>
           <v-container v-if="comment.isOpen" class="pl-15 pr-0 py-0">
-            <comment v-for="child in comment.child" :comment="child" type="child"
+            <comment v-for="child in comment.child" :comment="child" type="childComment"
               v-bind:key="child.id" size="30">
             </comment>
           </v-container>
@@ -34,13 +34,12 @@ export default {
         this.fetchChildComment(parent);
         return;
       }
-      const targetComment = this.post.comments.find((comment) => comment.id === parent.id);
-      this.$set(targetComment, 'isOpen', false);
+      this.$store.commit('comment/setIsOpen', parent.id);
     },
     async fetchChildComment(parent) {
-      const targetComment = this.post.comments.find((comment) => comment.id === parent.id);
+      const targetComment = this.comments.find((comment) => comment.id === parent.id);
       await this.$store.dispatch('comment/fetchChildComment', targetComment.id);
-      this.$set(targetComment, 'isOpen', true);
+      this.$store.commit('comment/setIsOpen', parent.id);
     },
   },
 };
