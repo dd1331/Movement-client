@@ -69,6 +69,12 @@ export default {
       likeStatus: null,
     };
   },
+  watch: {
+  // TODO check out why it's called only when parent value is called on CommentList
+    comment() {
+      // console.log('co');
+    },
+  },
   computed: {
     post() {
       return this.$store.getters['post/getActivePost'];

@@ -5,6 +5,8 @@
       <ul class="pa-0">
         <comment :comment="comment" @toggleComment="toggleComment" ></comment>
           <v-container v-if="comment.isOpen" class="pl-15 pr-0 py-0">
+            <!-- TODO refactor poor workaround for nested computed value -->
+            <span class="d-none">{{comment.childCount}}</span>
             <comment v-for="child in comment.child" :comment="child" type="childComment"
               v-bind:key="child.id" size="30">
             </comment>

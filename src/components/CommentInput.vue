@@ -52,6 +52,7 @@ export default {
         type: this.type,
       };
       await this.$store.dispatch('comment/createChildComment', payload);
+      // TODO check why it dosen't work with nested computed values
       // this.$set(this.parent, 'child', childComments);
       // this.toggleComment(this.parent);
       this.clearAll();
