@@ -127,7 +127,7 @@ export default {
         commentId,
         postId: this.post.id,
       };
-      if (this.type === 'child') {
+      if (this.type === 'childComment') {
         this.$store.dispatch('comment/deleteChildComment', payload);
         return;
       }

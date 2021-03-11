@@ -14,6 +14,9 @@ export default {
     setPosts(state, posts) {
       state.posts = posts;
     },
+    accumulatePosts(state, posts) {
+      state.posts = [...state.posts, ...posts];
+    },
     setRecommendedPosts(state, posts) {
       state.recommendedPosts = posts;
     },
@@ -43,8 +46,8 @@ export default {
       commit('setPosts', data.slice(0, 20));
     },
     async fetchCategorizedPosts({ commit }, payload) {
-      const { data } = await axios.get(`http://localhost:3000/posts/readAll/${payload.title}`);
-      commit('setPosts', data.slice(0, 20));
+      const { data } = await axios.get('http://localhost:3000/posts/readAll', { params: payload });
+      commit('setPosts', data);
     },
     async fetchPost({ commit, dispatch }, postId) {
       const { data } = await axios.get(`http://localhost:3000/posts/${postId}`);
