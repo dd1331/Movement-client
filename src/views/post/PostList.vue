@@ -54,6 +54,7 @@ export default {
     this.$store.dispatch('post/fetchCategorizedPosts', this.payload);
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and O
+    this.hasMore = true;
     next();
   },
   computed: {

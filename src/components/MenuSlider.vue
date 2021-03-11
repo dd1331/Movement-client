@@ -1,8 +1,11 @@
 <template>
-  <v-card>
+  <v-card flat outlined rounded="0" color="rgba(0, 0, 0, 0.12)">
+
     <v-tabs v-model="categoryId"
+      class="slider-tabs"
       dark
-      background-color="primary"
+      background-color="white"
+      slider-color="red--text text--lighten-3"
       :optional="categoryId === -1"
       show-arrows
     >
@@ -14,7 +17,9 @@
         :key="category.id"
         @click="sendTo(category)"
       >
+      <span class="black--text">
         {{ category.koTitle }}
+      </span>
       </v-tab>
     </v-tabs>
   </v-card>
@@ -58,3 +63,10 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.slider-tabs {
+  .theme--dark.v-icon.v-icon {
+    color:black
+  }
+}
+</style>

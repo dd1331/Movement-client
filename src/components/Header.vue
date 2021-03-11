@@ -1,17 +1,17 @@
 <template>
-  <v-app-bar class="test" app color="primary" dark>
+  <v-app-bar class="test" app color="white" dark flat>
       <div class="d-flex" @click="$router.push('/')">
-        <v-img alt="Vuetify Logo" class="shrink mr-2" contain src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png" transition="scale-transition" width="40"/>
-        <h1>
+        <!-- <v-img alt="Vuetify Logo" class="shrink mr-2" contain src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png" transition="scale-transition" width="40"/> -->
+        <h1 class="red--text text--lighten-1">
           movement
         </h1>
-        <!-- <v-img alt="Vuetify Name" class="shrink mt-1 hidden-sm-and-down" contain min-width="100" src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png" width="100"/> -->
+        <v-img alt="Vuetify Name" class="shrink mt-1 hidden-sm-and-down" contain min-width="100" src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png" width="100"/>
       </div>
       <v-spacer></v-spacer>
-        <span v-if="!user" @click="$router.push('/signup')">
+        <span class="black--text" v-if="!user" @click="$router.push('/signup')">
           로그인
         </span>
-        <span v-else @click="logout">
+        <span class="black--text" v-else @click="logout">
           로그아웃
         </span>
 
