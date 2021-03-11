@@ -24,7 +24,7 @@
             align="center"
             justify="center"
           > -->
-          <div class="">
+          <div class="mt-3">
 
             <Image-Grid :items="posts" cols="4" type="recommended"></Image-Grid>
           </div>

@@ -7,7 +7,6 @@
       뉴스
     </h4>
     <v-carousel
-      class="mt-2"
       cycle
       height="150"
       hide-delimiter-background
@@ -19,12 +18,7 @@
         v-for="(slide, i) in newsSplited"
         :key="i"
       >
-      <v-row
-        class="fill-height ma-0"
-        align="center"
-      >
         <Image-Grid :items="newsSplited[i]" cols="6" type='news'></Image-Grid>
-      </v-row>
     </v-carousel-item>
   </v-carousel>
   </div>

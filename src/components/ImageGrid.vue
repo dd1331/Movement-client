@@ -15,7 +15,7 @@
         </v-img>
         <v-img v-if="type==='news'"
           :src="item.image"
-          aspect-ratio="1"  width="175"
+          aspect-ratio="1"  width="170"
           height="100"
           class="grey lighten-2"
         >
