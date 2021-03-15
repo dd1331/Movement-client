@@ -5,8 +5,7 @@
     <v-layout column="">
       <v-flex>
         <v-text-field
-          label="Regular"
-          placeholder="Placeholder"
+          placeholder="제목"
           v-model="postInput.title"
         ></v-text-field>
       </v-flex>
@@ -14,9 +13,29 @@
         <v-textarea
           solo
           name="input-7-4"
-          label="Solo textarea"
+          placeholder="내용"
           v-model="postInput.content"
         ></v-textarea>
+      </v-flex>
+      <v-flex v-if="hashtags">
+        <v-chip
+          v-for="(hashtag,index) in hashtags"
+          v-bind:key="index"
+          class="ma-2"
+          close
+          @click:close="removeHashTag(index)"
+        >
+          {{hashtag}}
+        </v-chip>
+      </v-flex>
+      <v-flex>
+        <div>
+        <v-text-field
+          placeholder="해시태그"
+          v-model="hashtag"
+        ></v-text-field>
+        <v-btn @click="addHashTag">추가</v-btn>
+        </div>
       </v-flex>
       <v-flex>
         <v-file-input
@@ -44,7 +63,9 @@ export default {
         title: '',
         content: '',
       },
+      hashtag: '',
       file: '',
+      hashtags: [],
 
     };
   },
@@ -53,6 +74,7 @@ export default {
       return {
         ...this.postInput,
         id: this.activePost.id,
+        hashtags: this.hashtags,
       };
     },
     user() {
@@ -70,6 +92,13 @@ export default {
     },
   },
   methods: {
+    removeHashTag(index) {
+      this.hashtags.splice(index, 1);
+    },
+    addHashTag() {
+      this.hashtags.push(this.hashtag);
+      this.hashtag = '';
+    },
     async submitFile() {
       const formData = new FormData();
 
@@ -97,7 +126,8 @@ export default {
         const createPostInput = {
           ...this.postInput,
           poster: this.user.id,
-          category: this.currentCategory.title,
+          category: this.currentCategory ? this.currentCategory.title : this.$route.params.category,
+          hashtags: this.hashtags,
         };
         if (this.file) {
           const { data } = await this.submitFile();
@@ -108,6 +138,7 @@ export default {
         if (createdPost) {
           this.$router.push(`/posts/view/${createdPost.id}`);
         }
+        return;
       }
       if (this.file) {
         const { data } = await this.submitFile();

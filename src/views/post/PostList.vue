@@ -3,7 +3,9 @@
     <section class="d-flex">
       <h1 v-if="currentCategory">{{currentCategory.koTitle}}</h1>
       <v-spacer></v-spacer>
-      <v-btn v-if="!isNews" small="" @click="$router.push('/posts/form')">글쓰기</v-btn>
+      <v-btn v-if="!isNews" small="" @click="$router.push(`/posts/form/${currentCategory.title}`)">
+        글쓰기
+      </v-btn>
 
     </section>
     <section>

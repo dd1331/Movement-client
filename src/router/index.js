@@ -33,7 +33,7 @@ const routes = [
     component: NaverCallback,
   },
   {
-    path: '/posts/form',
+    path: '/posts/form/:category',
     name: 'PostForm',
     component: PostForm,
   },
