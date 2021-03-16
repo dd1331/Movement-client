@@ -43,7 +43,7 @@ const routes = [
     component: PostView,
   },
   {
-    path: '/posts/list/:category',
+    path: '/posts/list/:category/:hashtagId?',
     name: 'Posts',
     component: PostList,
   },

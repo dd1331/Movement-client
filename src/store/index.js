@@ -5,6 +5,7 @@ import auth from './modules/auth';
 import post from './modules/post';
 import comment from './modules/comment';
 import common from './modules/common';
+import hashtag from './modules/hashtag';
 
 Vue.use(Vuex);
 
@@ -21,6 +22,7 @@ const store = new Vuex.Store({
     auth,
     comment,
     common,
+    hashtag,
   },
 });
 

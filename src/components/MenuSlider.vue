@@ -12,7 +12,6 @@
     <!-- TODO check what v-tabs-slider is for -->
       <!-- <v-tabs-slider color="primary lighten-3"></v-tabs-slider> -->
       <v-tab
-      class="p-0"
         v-for="category in categories"
         :key="category.id"
         @click="sendTo(category)"

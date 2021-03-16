@@ -1,6 +1,6 @@
 <template>
   <v-app-bar class="test" app color="white" dark flat>
-      <div class="d-flex" @click="$router.push('/')">
+      <div class="d-flex" @click="goHome">
         <!-- <v-img alt="Vuetify Logo" class="shrink mr-2" contain src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png" transition="scale-transition" width="40"/> -->
         <h1 class="red--text text--lighten-1">
           movement
@@ -28,6 +28,10 @@ export default {
     MenuSlider,
   },
   methods: {
+    goHome() {
+      if (this.$router.history.current.path === '/') return;
+      this.$router.push('/');
+    },
     logout() {
       this.$store.dispatch('auth/logout');
       this.$router.push('/');

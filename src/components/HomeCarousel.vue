@@ -15,9 +15,9 @@
           <v-icon class="grey--text text--darken-1 mb-1">
             mdi-trophy
           </v-icon>
-          <h4 class="grey--text text--darken-3 d-inline">
+          <h3 class="grey--text text--darken-3 d-inline">
             추천
-          </h4>
+          </h3>
         </div>
           <!-- <v-row
             class="fill-height ma-0"

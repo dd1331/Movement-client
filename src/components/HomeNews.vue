@@ -3,9 +3,9 @@
     <v-icon class="mb-1">
       mdi-newspaper-variant
     </v-icon>
-    <h4 class="grey--text text--darken-3 d-inline">
+    <h3 class="grey--text text--darken-3 d-inline">
       뉴스
-    </h4>
+    </h3>
     <v-carousel
       cycle
       height="150"

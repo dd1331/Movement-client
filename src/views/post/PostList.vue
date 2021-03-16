@@ -1,7 +1,15 @@
 <template>
   <div>
-    <section class="d-flex">
-      <h1 v-if="currentCategory">{{currentCategory.koTitle}}</h1>
+    <section class="d-flex align-center">
+      <h1 v-if="currentCategory">{{title}}</h1>
+       <v-chip v-if="hashtagTitle"
+          class="mx-3 "
+          small
+          color="red"
+          outlined
+        >
+          {{hashtagTitle}}
+        </v-chip>
       <v-spacer></v-spacer>
       <v-btn v-if="!isNews" small="" @click="$router.push(`/posts/form/${currentCategory.title}`)">
         글쓰기
@@ -60,10 +68,21 @@ export default {
     next();
   },
   computed: {
+    title() {
+      if (this.hashtagId) return '# 검색';
+      return this.currentCategory.koTitle;
+    },
+    hashtagId() {
+      return this.$route.query.hashtagId;
+    },
+    hashtagTitle() {
+      return this.$route.query.hashtagTitle;
+    },
     payload() {
       return {
         category: this.currentCategory.title,
         page: this.page,
+        hashtagId: this.hashtagId,
       };
     },
     isNews() {

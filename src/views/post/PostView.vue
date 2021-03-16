@@ -15,6 +15,26 @@
           <option-menu @onEdit="edit"
           @onDelete="remove"></option-menu>
         </div>
+
+      </div>
+      <div class="d-flex">
+        <span class="font-weight-black">#</span>
+        <v-chip
+          class="mx-1"
+          small
+          color="red"
+          outlined
+        >
+          ㅅㄷㄴ
+        </v-chip>
+        <v-chip
+          class="mx-1"
+          small
+          color="red"
+          outlined
+        >
+          ㅅㄷㄴ
+        </v-chip>
       </div>
     </section>
     <v-divider class="my-6"></v-divider>
