@@ -36,6 +36,7 @@ const routes = [
     path: '/posts/form/:category',
     name: 'PostForm',
     component: PostForm,
+    meta: { requiresAuth: true },
   },
   {
     path: '/posts/view/:id',
@@ -51,6 +52,7 @@ const routes = [
     path: '/posts/edit/:id',
     name: 'PostFormEdit',
     component: PostForm,
+    meta: { requiresAuth: true },
   },
   {
     path: '/about',
@@ -89,6 +91,16 @@ router.beforeEach(async (to, from, next) => {
     const payload = store.getters['common/getCategories'].find((category) => category.title === to.query.category);
     if (payload) {
       store.commit('common/setCurrentCategory', payload);
+    }
+  }
+  // TODO find out a way not to show error message for redireciting comprehensively
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!store.getters['auth/getAppUser']) {
+      next({
+        path: '/login',
+        // query: { redirect: to.fullPath },
+      });
+      return;
     }
   }
   next();

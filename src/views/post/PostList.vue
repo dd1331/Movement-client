@@ -11,7 +11,8 @@
           {{hashtagTitle}}
         </v-chip>
       <v-spacer></v-spacer>
-      <v-btn v-if="!isNews" small="" @click="$router.push(`/posts/form/${currentCategory.title}`)">
+      <v-btn v-if="!isNews" small
+        @click="sendTo(currentCategory.title)">
         글쓰기
       </v-btn>
 
@@ -37,6 +38,9 @@ export default {
     };
   },
   methods: {
+    sendTo(title) {
+      this.$router.push(`/posts/form/${title}`).catch(() => {});
+    },
     infiniteScrolling(_, __, c) {
       if (!c || this.isNews) return;
       setTimeout(() => {
@@ -93,6 +97,9 @@ export default {
     },
     posts() {
       return this.$store.getters['post/getPosts'];
+    },
+    user() {
+      return this.$store.getters['auth/getAppUser'];
     },
   },
 

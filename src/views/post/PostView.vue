@@ -12,12 +12,11 @@
         ・
         {{formatDate(post.createdAt, {format:'M.D HH:MM'})}}
         <div>
-          <option-menu @onEdit="edit"
+          <option-menu @onEdit="edit" v-if="user && user.id === post.poster.id"
           @onDelete="remove"></option-menu>
         </div>
-
       </div>
-      <div class="d-flex">
+      <!-- <div class="d-flex">
         <span class="font-weight-black">#</span>
         <v-chip
           class="mx-1"
@@ -35,10 +34,11 @@
         >
           ㅅㄷㄴ
         </v-chip>
-      </div>
+      </div> -->
     </section>
-    <v-divider class="my-6"></v-divider>
-    <section class="content">
+    <v-divider class="my-3"></v-divider>
+    <!-- <section class="content"> -->
+    <section>
       <div>
         <v-img v-if="post.files[0]" :src="post.files[0].url"></v-img>
         {{post.content}}
@@ -114,6 +114,8 @@ export default {
       this.likeStatus = userLike.isLike;
     },
     async likePost() {
+      if (!this.user) return;
+
       const payload = {
         targetId: this.post.id,
         userId: this.user.id,
@@ -124,6 +126,8 @@ export default {
       this.setLikeStatus();
     },
     async dislikePost() {
+      if (!this.user) return;
+
       const payload = {
         targetId: this.post.id,
         userId: this.user.id,

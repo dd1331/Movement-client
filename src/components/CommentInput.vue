@@ -29,6 +29,8 @@ export default {
   },
   methods: {
     async createComment() {
+      if (!this.user) return;
+
       if (this.type === 'child') {
         this.createChildComment();
         return;
