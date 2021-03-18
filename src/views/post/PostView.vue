@@ -114,7 +114,10 @@ export default {
       this.likeStatus = userLike.isLike;
     },
     async likePost() {
-      if (!this.user) return;
+      if (!this.user) {
+        this.sendTo('/login');
+        return;
+      }
 
       const payload = {
         targetId: this.post.id,
@@ -126,7 +129,10 @@ export default {
       this.setLikeStatus();
     },
     async dislikePost() {
-      if (!this.user) return;
+      if (!this.user) {
+        this.sendTo('/login');
+        return;
+      }
 
       const payload = {
         targetId: this.post.id,
@@ -136,6 +142,9 @@ export default {
       };
       await this.$store.dispatch('post/dislikePost', payload);
       this.setLikeStatus();
+    },
+    sendTo(path) {
+      this.$router.push(path);
     },
   },
   data() {

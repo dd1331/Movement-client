@@ -10,6 +10,7 @@
           dense
           placeholder="댓글"
           clearable
+          @click="checkLoginStatus"
         >
         </v-text-field>
       </v-col>
@@ -28,8 +29,19 @@ export default {
     };
   },
   methods: {
+    sendTo(path) {
+      this.$router.push(path);
+    },
+    checkLoginStatus() {
+      if (!this.user) {
+        this.sendTo('/login');
+      }
+    },
     async createComment() {
-      if (!this.user) return;
+      if (!this.user) {
+        this.sendTo('/login');
+        return;
+      }
 
       if (this.type === 'child') {
         this.createChildComment();

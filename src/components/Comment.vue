@@ -19,7 +19,8 @@
         ・
         {{formatDate(comment.createdAt,{format:'M.D HH:MM'})}}
       <div>
-        <option-menu @onEdit="deleteComment(comment.id)"
+        <option-menu v-if="user && comment.commenter.id === user.id"
+          @onEdit="deleteComment(comment.id)"
           @onDelete="deleteComment(comment.id)"></option-menu>
       </div>
       </div>
@@ -40,7 +41,7 @@
             mdi-thumb-down
           </v-icon>{{comment.likes.filter((like) => like.isLike === false).length}}
         </v-btn>
-        <v-btn v-if="type !== 'childComment'" icon @click="isInputOpen = !isInputOpen">
+        <v-btn v-if="type !== 'childComment'" icon @click="toggleInput">
           <v-icon>
             mdi-comment
           </v-icon>
@@ -91,12 +92,26 @@ export default {
     },
   },
   methods: {
+    toggleInput() {
+      if (!this.user) {
+        this.sendTo('/login');
+        return;
+      }
+      this.isInputOpen = !this.isInputOpen;
+    },
+    sendTo(path) {
+      this.$router.push(path);
+    },
     setLikeStatus(likes) {
       const like = likes.find((l) => l.userId === this.user.id);
       this.likeStatus = like.isLike;
       // TODO refactor using store
     },
     async likeComment() {
+      if (!this.user) {
+        this.sendTo('/login');
+        return;
+      }
       const payload = {
         data: {
           type: this.type === 'childComment' ? 'childComment' : 'comment',
@@ -110,6 +125,10 @@ export default {
       this.setLikeStatus(likes);
     },
     async dislikeComment() {
+      if (!this.user) {
+        this.sendTo('/login');
+        return;
+      }
       const payload = {
         data: {
           type: this.type === 'childComment' ? 'childComment' : 'comment',
