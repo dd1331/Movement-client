@@ -24,7 +24,6 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
 import ImageGrid from '@/components/ImageGrid';
 
 export default {
@@ -36,7 +35,7 @@ export default {
   },
   methods: {
     async getNews() {
-      const news = await axios.get('http://localhost:3000/news');
+      const news = await this.$axios.get('http://localhost:3000/news');
       this.news = news.data;
     },
   },

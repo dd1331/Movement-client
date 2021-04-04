@@ -44,20 +44,12 @@
       <div id="naverIdLogin">
         <!-- <v-btn>네이버로 로그인</v-btn> -->
       </div>
+      <v-btn @click="test">teset</v-btn>
+      <v-btn @click="test2">google</v-btn>
+      <a href="http://localhost:3000/auth/google">google</a>
   </div>
 </template>
 <script>
-// eslint-disable-next-line no-undef
-// const naverLogin = new naver.LoginWithNaverId(
-//   {
-//     clientId: 'ag_B0_vLXpvrgG1J5Upp',
-//     callbackUrl: 'http://localhost:8080/naver/callback',
-//     isPopup: false, /* 팝업을 통한 연동처리 여부 */
-//     loginButton: { color: 'green', type: 3, height: 60 }, /* 로그인 버튼의 타입을 지정 */
-//   },
-// );
-
-/* 설정정보를 초기화하고 연동을 준비 */
 
 export default {
   data: () => ({
@@ -70,12 +62,23 @@ export default {
     ],
     passwordRules: [
       (v) => !!v || 'Phone is required',
-      (v) => (v && v.length > 4) || 'Phone must be more than 11 characters',
+      // (v) => (v && v.length > 4) || 'Phone must be more than 11 characters',
     ],
     naverLogin: null,
   }),
 
   methods: {
+    async test() {
+      // const { data } = await this.$axios.get('http://192.168.35.123:3000/auth/naver');
+      // const { data } = await this.$axios.get('http://192.168.35.21:3000/auth/naver');
+      const { data } = await this.$axios.post('http://localhost:3000/auth/naver');
+      console.log(data);
+    },
+    async test2() {
+      // const { data } = await this.$axios.get('http://192.168.35.123:3000/auth/google');
+      const { data } = await this.$axios.get('http://localhost:3000/auth/google');
+      console.log(data);
+    },
     validate() {
       this.$refs.form.validate();
     },
@@ -91,10 +94,9 @@ export default {
     this.naverLogin = new naver.LoginWithNaverId(
       {
         clientId: 'ag_B0_vLXpvrgG1J5Upp',
-        callbackUrl: 'http://localhost:8080/auth/naver',
-        // callbackUrl: 'http://localhost:3000/auth/naver',
-        // callbackUrl: 'http://localhost:8080/naver/callback',
+        callbackUrl: 'http://192.168.35.219:8080/auth/naver',
         isPopup: false, /* 팝업을 통한 연동처리 여부 */
+        callbackHandle: false,
         loginButton: { color: 'green', type: 3, height: 60 }, /* 로그인 버튼의 타입을 지정 */
       },
     );

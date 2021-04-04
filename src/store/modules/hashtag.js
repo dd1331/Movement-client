@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export default {
   namespaced: true,
   state: () => ({
@@ -12,7 +10,7 @@ export default {
   },
   actions: {
     async fetchPopularHashtags({ commit }) {
-      const { data } = await axios.get('http://localhost:3000/hashtags/popular');
+      const { data } = await this.$axios.get('http://localhost:3000/hashtags/popular');
       console.log(data);
       commit('setPopularHashtags', data);
     },

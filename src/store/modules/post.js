@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export default {
   namespaced: true,
   state: () => ({
@@ -42,43 +40,43 @@ export default {
   },
   actions: {
     async fetchAllPosts({ commit }) {
-      const { data } = await axios.get('http://localhost:3000/posts/readAll');
+      const { data } = await this.$axios.get('http://localhost:3000/posts/readAll');
       commit('setPosts', data.slice(0, 20));
     },
     async fetchCategorizedPosts({ commit }, payload) {
-      const { data } = await axios.get('http://localhost:3000/posts/readAll', { params: payload });
+      const { data } = await this.$axios.get('http://localhost:3000/posts/readAll', { params: payload });
       commit('setPosts', data);
     },
     async fetchPost({ commit, dispatch }, postId) {
-      const { data } = await axios.get(`http://localhost:3000/posts/${postId}`);
+      const { data } = await this.$axios.get(`http://localhost:3000/posts/${postId}`);
       commit('setActivePost', data);
       dispatch('comment/fetchActiveComments', postId, { root: true });
     },
     async fetchRecommendedPost({ commit }) {
-      const { data } = await axios.get('http://localhost:3000/posts/recommended');
+      const { data } = await this.$axios.get('http://localhost:3000/posts/recommended');
       commit('setRecommendedPosts', data);
     },
     async fetchPopularPosts({ commit }) {
-      const { data } = await axios.get('http://localhost:3000/posts/popular');
+      const { data } = await this.$axios.get('http://localhost:3000/posts/popular');
       commit('setPopularPosts', data);
     },
     async fetchRecentPosts({ commit }) {
-      const { data } = await axios.get('http://localhost:3000/posts/recent');
+      const { data } = await this.$axios.get('http://localhost:3000/posts/recent');
       commit('setRecentPosts', data);
     },
     async createPost(_, payload) {
-      const { data } = await axios.post('http://localhost:3000/posts/create', payload);
+      const { data } = await this.$axios.post('http://localhost:3000/posts/create', payload);
       return data;
     },
     async updatePost(_, post) {
-      const { data } = await axios.patch('http://localhost:3000/posts', post);
+      const { data } = await this.$axios.patch('http://localhost:3000/posts', post);
       return data;
     },
     async removePost({ dispatch }, payload) {
       try {
         // TODO replace temperal return value
         const res = payload.id;
-        // const res = await axios.delete(`http://localhost:3000/posts/${payload.id}`);
+        // const res = await this.$axios.delete(`http://localhost:3000/posts/${payload.id}`);
         dispatch('fetchCategorizedPosts', { title: payload.category });
         return res;
       } catch (error) {
@@ -86,12 +84,12 @@ export default {
       }
     },
     async likePost({ commit }, payload) {
-      const updatedPost = await axios.post('http://localhost:3000/posts/like', payload);
+      const updatedPost = await this.$axios.post('http://localhost:3000/posts/like', payload);
       commit('setActiveLikes', updatedPost.data);
       return updatedPost;
     },
     async dislikePost({ commit }, payload) {
-      const updatedPost = await axios.post('http://localhost:3000/posts/dislike', payload);
+      const updatedPost = await this.$axios.post('http://localhost:3000/posts/dislike', payload);
       commit('setActiveLikes', updatedPost.data);
       return updatedPost;
     },

@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export default {
   namespaced: true,
   state: () => ({
@@ -16,7 +14,7 @@ export default {
   },
   actions: {
     async fetchCategories({ commit }) {
-      const res = await axios.get('http://localhost:3000/common/categories/board');
+      const res = await this.$axios.get('http://localhost:3000/common/categories/board');
       commit('setCategories', res.data);
     },
 

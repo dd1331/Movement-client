@@ -8,10 +8,9 @@ export default {
     const naverLogin = new naver.LoginWithNaverId(
       {
         clientId: 'ag_B0_vLXpvrgG1J5Upp',
-        callbackUrl: 'http://localhost:8080/auth/naver',
-        // callbackUrl: 'http://localhost:3000/auth/naver',
+        callbackUrl: 'http://192.168.35.219:3000/auth/naver',
         isPopup: false,
-        callbackHandle: true,
+        callbackHandle: false,
         /* callback 페이지가 분리되었을 경우에 callback 페이지에서는 callback처리를 해줄수 있도록 설정합니다. */
       },
     );
@@ -23,8 +22,13 @@ export default {
     window.addEventListener('load', () => {
       naverLogin.getLoginStatus(async (status) => {
         if (status) {
-          const { id } = naverLogin.user;
-          await this.$store.dispatch('auth/loginWithNaver', id);
+          const { user, accessToken } = naverLogin;
+          const payload = {
+            naverId: user.id,
+            accessToken: accessToken.accessToken,
+          };
+
+          await this.$store.dispatch('auth/loginWithNaver', payload);
           this.$router.push('/');
         } else {
           console.log('callback 처리에 실패하였습니다.');

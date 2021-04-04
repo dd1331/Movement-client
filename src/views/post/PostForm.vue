@@ -54,7 +54,6 @@
 </div>
 </template>
 <script>
-import axios from 'axios';
 
 export default {
   data() {
@@ -104,7 +103,7 @@ export default {
 
       formData.append('file', this.file);
 
-      const res = await axios.post('http://localhost:3000/files/upload',
+      const res = await this.$axios.post('http://localhost:3000/files/upload',
         formData,
         {
           headers: {

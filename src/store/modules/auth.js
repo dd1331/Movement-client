@@ -1,4 +1,4 @@
-import axios from 'axios';
+//
 
 const getAppUser = () => JSON.parse(localStorage.getItem('appUser'));
 
@@ -18,11 +18,11 @@ export default {
     },
   },
   actions: {
-    async loginWithNaver({ commit }, id) {
-      const { data } = await axios.post('http://localhost:3000/auth/naver', {
-        id,
-      });
+    async loginWithNaver({ commit }, payload) {
+      const { data } = await this.$axios.post('http://192.168.35.219:3000/auth/naver', { ...payload });
       commit('SET_USER', data);
+      // TODO refactor
+      this.$axios.defaults.headers.common.Authorization = `Bearer ${data.accessToken}`;
     },
     async logout({ commit }) {
       commit('REMOVE_USER');

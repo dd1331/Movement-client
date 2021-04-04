@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export default {
   namespaced: true,
   state: () => ({
@@ -40,11 +38,11 @@ export default {
   },
   actions: {
     async fetchActiveComments({ commit }, id) {
-      const { data } = await axios.get(`http://localhost:3000/comments/post/${id}`);
+      const { data } = await this.$axios.get(`http://localhost:3000/comments/post/${id}`);
       commit('setActiveComments', data);
     },
     async likeComment({ commit }, payload) {
-      const { data } = await axios.post('http://localhost:3000/comments/like', payload.data);
+      const { data } = await this.$axios.post('http://localhost:3000/comments/like', payload.data);
       if (data[0]?.type === 'childComment') {
         commit('updateChildLikeCount', { targetId: payload.data.targetId, data, parentId: payload.parentId });
         return data;
@@ -53,7 +51,7 @@ export default {
       return data;
     },
     async dislikeComment({ commit }, payload) {
-      const { data } = await axios.post('http://localhost:3000/comments/dislike', payload.data);
+      const { data } = await this.$axios.post('http://localhost:3000/comments/dislike', payload.data);
       if (data[0]?.type === 'childComment') {
         commit('updateChildDislikeCount', { targetId: payload.data.targetId, data, parentId: payload.parentId });
         return data;
@@ -62,31 +60,31 @@ export default {
       return data;
     },
     async createComment({ dispatch }, payload) {
-      await axios.post('http://localhost:3000/comments/create', payload);
+      await this.$axios.post('http://localhost:3000/comments/create', payload);
       // TODO mutate only comments in post object ?
       dispatch('post/fetchPost', payload.postId, { root: true });
     },
     async createChildComment({ dispatch }, payload) {
-      await axios.post('http://localhost:3000/comments/create-child', payload.comment);
+      await this.$axios.post('http://localhost:3000/comments/create-child', payload.comment);
       dispatch('fetchChildComment', payload.comment.parentId);
       // TODO mutate only comments in post object ?
     },
 
     async fetchChildComment({ commit }, id) {
       // TODO set it in vuex store ?
-      const { data } = await axios.get(`http://localhost:3000/comments/fetch-children/${id}`);
+      const { data } = await this.$axios.get(`http://localhost:3000/comments/fetch-children/${id}`);
       commit('setChildComments', { childComments: data, id });
       return data;
     },
     async deleteComment({ dispatch }, payload) {
       const { commentId, postId } = payload;
-      await axios.delete(`http://localhost:3000/comments/${commentId}`);
+      await this.$axios.delete(`http://localhost:3000/comments/${commentId}`);
       // TODO mutate only comments in post object ?
       dispatch('post/fetchPost', postId, { root: true });
     },
     async deleteChildComment({ dispatch }, payload) {
       const { commentId } = payload;
-      const { data } = await axios.delete(`http://localhost:3000/comments/child/${commentId}`);
+      const { data } = await this.$axios.delete(`http://localhost:3000/comments/child/${commentId}`);
       dispatch('fetchChildComment', data.parentId);
     },
   },

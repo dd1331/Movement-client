@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export default {
   namespaced: true,
   state: () => ({
@@ -12,7 +10,7 @@ export default {
   },
   actions: {
     async loginWithNaver({ commit }, id) {
-      const { data } = await axios.post('http://localhost:3000/auth/naver', {
+      const { data } = await this.$axios.post('http://localhost:3000/auth/naver', {
         id,
       });
       commit('SET_USER', data);

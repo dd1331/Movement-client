@@ -8,7 +8,7 @@
       ></v-divider>
 
       <v-list-item
-        v-else
+        v-else class="px-0"
         :key="item.title"
         @click="openUrl(item.url)"
       >
@@ -27,7 +27,7 @@
   </v-list>
 </template>
 <script>
-import axios from 'axios';
+
 import dateMixins from '../mixins/dateMixins';
 
 export default {
@@ -43,7 +43,7 @@ export default {
       window.open(url);
     },
     async getNews() {
-      const news = await axios.get('http://localhost:3000/news');
+      const news = await this.$axios.get('http://localhost:3000/news');
       this.news = news.data;
     },
   },

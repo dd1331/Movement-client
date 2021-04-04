@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
+
 import PostListComponent from '../../components/PostList3';
 import NewsList from '../../components/NewsList';
 
@@ -45,7 +45,7 @@ export default {
       if (!c || this.isNews) return;
       setTimeout(() => {
         this.page += 1;
-        axios.get('http://localhost:3000/posts/readAll', { params: this.payload }).then((response) => {
+        this.$axios.get('http://localhost:3000/posts/readAll', { params: this.payload }).then((response) => {
           if (response.data.length > 1) {
             this.$store.commit('post/accumulatePosts', response.data);
             return;
