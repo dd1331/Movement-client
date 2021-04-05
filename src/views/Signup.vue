@@ -27,7 +27,7 @@
         :disabled="!valid"
         color="success"
         class="pa-2 my-5"
-        @click="validate"
+        @click="signup"
         min-width="100%"
       >
         가입
@@ -53,8 +53,8 @@
 export default {
   data: () => ({
     valid: true,
-    phone: '',
-    password: '',
+    phone: '01000000002',
+    password: '123123',
     phoneRules: [
       (v) => !!v || 'Phone is required',
       (v) => (v && v.length >= 11) || 'Phone must be more than 11 characters',
@@ -67,6 +67,18 @@ export default {
   }),
 
   methods: {
+    async signup() {
+      this.validate();
+      const payload = {
+        phone: this.phone,
+        password: this.password,
+      };
+      const { data } = await this.$axios.post('http://localhost:3000/users/signup', payload);
+      if (data && data.phone === this.phone) {
+        const loggedIn = this.$store.dispatch('auth/loginWithJwt', payload);
+        if (loggedIn) this.$router.push('/');
+      }
+    },
     async test() {
       // const { data } = await this.$axios.get('http://192.168.35.123:3000/auth/naver');
       // const { data } = await this.$axios.get('http://192.168.35.21:3000/auth/naver');

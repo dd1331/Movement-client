@@ -36,9 +36,9 @@
         color="warning"
         class="pa-2"
         min-width="100%"
-        @click="$router.push('/')"
+        @click="$router.push('/signup')"
       >
-        취소
+        회원가입
       </v-btn>
     </v-form>
       <!-- <div id="naverIdLogin">
