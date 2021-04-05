@@ -27,23 +27,22 @@
         :disabled="!valid"
         color="success"
         class="pa-2 my-5"
-        @click="validate"
+        @click="login"
         min-width="100%"
       >
         로그인
       </v-btn>
-      <!-- <v-btn
+      <v-btn
         color="warning"
         class="pa-2"
         min-width="100%"
         @click="$router.push('/')"
       >
         취소
-      </v-btn> -->
+      </v-btn>
     </v-form>
-      <div id="naverIdLogin">
-        <!-- <v-btn>네이버로 로그인</v-btn> -->
-      </div>
+      <!-- <div id="naverIdLogin">
+      </div> -->
   </div>
 </template>
 <script>
@@ -51,11 +50,11 @@
 export default {
   data: () => ({
     valid: true,
-    phone: '',
-    password: '',
+    phone: '01000000000',
+    password: '123123',
     phoneRules: [
       (v) => !!v || 'Phone is required',
-      (v) => (v && v.length > 10) || 'Phone must be more than 11 characters',
+      (v) => (v && v.length >= 11) || 'Phone must be more than 11 characters',
     ],
     passwordRules: [
       (v) => !!v || 'Phone is required',
@@ -65,6 +64,15 @@ export default {
   }),
 
   methods: {
+    login() {
+      this.validate();
+      const payload = {
+        phone: this.phone,
+        password: this.password,
+      };
+      const loggedIn = this.$store.dispatch('auth/loginWithJwt', payload);
+      if (loggedIn) this.$router.push('/');
+    },
     validate() {
       this.$refs.form.validate();
     },
@@ -77,18 +85,18 @@ export default {
   },
   mounted() {
     // eslint-disable-next-line no-undef
-    this.naverLogin = new naver.LoginWithNaverId(
-      {
-        clientId: 'ag_B0_vLXpvrgG1J5Upp',
-        callbackUrl: 'http://localhost:8080/auth/naver',
-        // callbackUrl: 'http://localhost:3000/auth/naver',
-        // callbackUrl: 'http://localhost:8080/naver/callback',
-        isPopup: false, /* 팝업을 통한 연동처리 여부 */
-        loginButton: { color: 'green', type: 3, height: 60 }, /* 로그인 버튼의 타입을 지정 */
-      },
-    );
-    console.log('this.naverLogin', this.naverLogin);
-    this.naverLogin.init();
+    // this.naverLogin = new naver.LoginWithNaverId(
+    //   {
+    //     clientId: 'ag_B0_vLXpvrgG1J5Upp',
+    //     callbackUrl: 'http://localhost:8080/auth/naver',
+    //     // callbackUrl: 'http://localhost:3000/auth/naver',
+    //     // callbackUrl: 'http://localhost:8080/naver/callback',
+    //     isPopup: false, /* 팝업을 통한 연동처리 여부 */
+    //     loginButton: { color: 'green', type: 3, height: 60 }, /* 로그인 버튼의 타입을 지정 */
+    //   },
+    // );
+    // console.log('this.naverLogin', this.naverLogin);
+    // this.naverLogin.init();
   },
 };
 </script>

@@ -8,7 +8,7 @@
         <v-img alt="Vuetify Name" class="shrink mt-1 hidden-sm-and-down" contain min-width="100" src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png" width="100"/>
       </div>
       <v-spacer></v-spacer>
-        <span class="black--text" v-if="!user" @click="$router.push('/signup')">
+        <span class="black--text" v-if="!user" @click="$router.push('/login')">
           로그인
         </span>
         <span class="black--text" v-else @click="logout">

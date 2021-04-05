@@ -27,6 +27,16 @@ export default {
     async logout({ commit }) {
       commit('REMOVE_USER');
     },
+    async loginWithJwt({ commit }, payload) {
+      await this.$axios.post('http://localhost:3000/auth/jwt', payload).then((res) => {
+        if (res.data) {
+          commit('SET_USER', res.data);
+          this.$axios.defaults.headers.common.Authorization = `Bearer ${res.data.accessToken}`;
+          return true;
+        }
+        return false;
+      });
+    },
   },
   getters: {
     getAppUser(state) {

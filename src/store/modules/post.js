@@ -40,11 +40,11 @@ export default {
   },
   actions: {
     async fetchAllPosts({ commit }) {
-      const { data } = await this.$axios.get('http://localhost:3000/posts/readAll');
+      const { data } = await this.$axios.get('http://localhost:3000/posts');
       commit('setPosts', data.slice(0, 20));
     },
     async fetchCategorizedPosts({ commit }, payload) {
-      const { data } = await this.$axios.get('http://localhost:3000/posts/readAll', { params: payload });
+      const { data } = await this.$axios.get('http://localhost:3000/posts', { params: payload });
       commit('setPosts', data);
     },
     async fetchPost({ commit, dispatch }, postId) {

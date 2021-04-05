@@ -45,7 +45,7 @@ export default {
       if (!c || this.isNews) return;
       setTimeout(() => {
         this.page += 1;
-        this.$axios.get('http://localhost:3000/posts/readAll', { params: this.payload }).then((response) => {
+        this.$axios.get('http://localhost:3000/posts', { params: this.payload }).then((response) => {
           if (response.data.length > 1) {
             this.$store.commit('post/accumulatePosts', response.data);
             return;

@@ -41,12 +41,11 @@
         취소
       </v-btn>
     </v-form>
-      <div id="naverIdLogin">
-        <!-- <v-btn>네이버로 로그인</v-btn> -->
+      <!-- <div id="naverIdLogin">
       </div>
       <v-btn @click="test">teset</v-btn>
       <v-btn @click="test2">google</v-btn>
-      <a href="http://localhost:3000/auth/google">google</a>
+      <a href="http://localhost:3000/auth/google">google</a> -->
   </div>
 </template>
 <script>
@@ -58,7 +57,7 @@ export default {
     password: '',
     phoneRules: [
       (v) => !!v || 'Phone is required',
-      (v) => (v && v.length > 10) || 'Phone must be more than 11 characters',
+      (v) => (v && v.length >= 11) || 'Phone must be more than 11 characters',
     ],
     passwordRules: [
       (v) => !!v || 'Phone is required',
@@ -91,17 +90,17 @@ export default {
   },
   mounted() {
     // eslint-disable-next-line no-undef
-    this.naverLogin = new naver.LoginWithNaverId(
-      {
-        clientId: 'ag_B0_vLXpvrgG1J5Upp',
-        callbackUrl: 'http://192.168.35.219:8080/auth/naver',
-        isPopup: false, /* 팝업을 통한 연동처리 여부 */
-        callbackHandle: false,
-        loginButton: { color: 'green', type: 3, height: 60 }, /* 로그인 버튼의 타입을 지정 */
-      },
-    );
-    console.log('this.naverLogin', this.naverLogin);
-    this.naverLogin.init();
+    // this.naverLogin = new naver.LoginWithNaverId(
+    //   {
+    //     clientId: 'ag_B0_vLXpvrgG1J5Upp',
+    //     callbackUrl: 'http://192.168.35.102:8080/auth/naver',
+    //     isPopup: false, /* 팝업을 통한 연동처리 여부 */
+    //     callbackHandle: false,
+    //     loginButton: { color: 'green', type: 3, height: 60 }, /* 로그인 버튼의 타입을 지정 */
+    //   },
+    // );
+    // console.log('this.naverLogin', this.naverLogin);
+    // this.naverLogin.init();
   },
 };
 </script>
