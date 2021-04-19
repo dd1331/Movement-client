@@ -74,6 +74,7 @@ export default {
         ...this.postInput,
         id: this.activePost.id,
         hashtags: this.hashtags,
+        poster: this.user.id.toString(),
       };
     },
     user() {
@@ -124,7 +125,7 @@ export default {
       if (this.mode === 'create') {
         const createPostInput = {
           ...this.postInput,
-          poster: this.user.id,
+          poster: this.user.id.toString(),
           category: this.currentCategory ? this.currentCategory.title : this.$route.params.category,
           hashtags: this.hashtags,
         };

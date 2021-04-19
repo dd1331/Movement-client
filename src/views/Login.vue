@@ -64,13 +64,13 @@ export default {
   }),
 
   methods: {
-    login() {
+    async login() {
       this.validate();
       const payload = {
         phone: this.phone,
         password: this.password,
       };
-      const loggedIn = this.$store.dispatch('auth/loginWithJwt', payload);
+      const loggedIn = await this.$store.dispatch('auth/loginWithJwt', payload);
       if (loggedIn) this.$router.push('/');
     },
     validate() {

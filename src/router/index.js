@@ -21,11 +21,13 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: Signup,
+    meta: { role: 'public' },
   },
   {
     path: '/login',
     name: 'Login',
     component: Login,
+    meta: { role: 'public' },
   },
   {
     path: '/auth/naver',
@@ -71,6 +73,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  const user = store.getters['auth/getAppUser'];
+  if (to.meta.role === 'public' && user) next(from);
+
   const currentCategory = store.getters['common/getCurrentCategory'];
   if (!currentCategory.title) {
     await store.dispatch('common/fetchCategories');
