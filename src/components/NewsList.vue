@@ -29,7 +29,7 @@
 <script>
 
 import dateMixins from '../mixins/dateMixins';
-import SERVER_HOST from '../../env-config';
+import VUE_APP_SERVER_HOST from '../../env-config';
 
 export default {
   mixins: [dateMixins],
@@ -44,7 +44,7 @@ export default {
       window.open(url);
     },
     async getNews() {
-      const news = await this.$axios.get(`${SERVER_HOST}/news`);
+      const news = await this.$axios.get(`${VUE_APP_SERVER_HOST}/news`);
       this.news = news.data;
     },
   },

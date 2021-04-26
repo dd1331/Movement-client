@@ -1,4 +1,4 @@
-import SERVER_HOST from '@/../env-config';
+import VUE_APP_SERVER_HOST from '@/../env-config';
 
 export default {
   namespaced: true,
@@ -16,7 +16,7 @@ export default {
   },
   actions: {
     async fetchCategories({ commit }) {
-      const res = await this.$axios.get(`${SERVER_HOST}/common/categories/board`);
+      const res = await this.$axios.get(`${VUE_APP_SERVER_HOST}/common/categories/board`);
       commit('setCategories', res.data);
     },
 

@@ -30,7 +30,7 @@
   </v-app>
 </template>
 <script>
-import SERVER_HOST from '@/../env-config';
+import VUE_APP_SERVER_HOST from '@/../env-config';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -44,7 +44,7 @@ export default {
   },
   created() {
     this.$store.dispatch('common/fetchCategories');
-    console.log('SERVER_HOST', SERVER_HOST);
+    console.log('VUE_APP_SERVER_HOST', VUE_APP_SERVER_HOST);
   },
 };
 </script>

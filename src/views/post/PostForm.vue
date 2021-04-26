@@ -54,7 +54,7 @@
 </div>
 </template>
 <script>
-import SERVER_HOST from '@/../env-config';
+import VUE_APP_SERVER_HOST from '@/../env-config';
 
 export default {
   data() {
@@ -105,7 +105,7 @@ export default {
 
       formData.append('file', this.file);
 
-      const res = await this.$axios.post(`${SERVER_HOST}/files/upload`,
+      const res = await this.$axios.post(`${VUE_APP_SERVER_HOST}/files/upload`,
         formData,
         {
           headers: {

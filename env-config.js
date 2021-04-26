@@ -1,3 +1,3 @@
-const SERVER_HOST = process.env.SERVER_HOST ? process.env.SERVER_HOST : 'http://localhost:3000';
+const VUE_APP_SERVER_HOST = process.env.VUE_APP_SERVER_HOST ? process.env.VUE_APP_SERVER_HOST : 'http://localhost:3000';
 
-export default SERVER_HOST;
+export default VUE_APP_SERVER_HOST;

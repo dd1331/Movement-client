@@ -25,7 +25,7 @@
 </template>
 <script>
 import ImageGrid from '@/components/ImageGrid';
-import SERVER_HOST from '../../env-config';
+import VUE_APP_SERVER_HOST from '../../env-config';
 
 export default {
   components: { ImageGrid },
@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     async getNews() {
-      const news = await this.$axios.get(`${SERVER_HOST}/news`);
+      const news = await this.$axios.get(`${VUE_APP_SERVER_HOST}/news`);
       this.news = news.data;
     },
   },

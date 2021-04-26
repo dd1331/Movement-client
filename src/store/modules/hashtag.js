@@ -1,4 +1,4 @@
-import SERVER_HOST from '@/../env-config';
+import VUE_APP_SERVER_HOST from '@/../env-config';
 
 export default {
   namespaced: true,
@@ -12,7 +12,7 @@ export default {
   },
   actions: {
     async fetchPopularHashtags({ commit }) {
-      const { data } = await this.$axios.get(`${SERVER_HOST}/hashtags/popular`);
+      const { data } = await this.$axios.get(`${VUE_APP_SERVER_HOST}/hashtags/popular`);
       console.log(data);
       commit('setPopularHashtags', data);
     },

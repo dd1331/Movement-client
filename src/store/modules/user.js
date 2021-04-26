@@ -1,4 +1,4 @@
-import SERVER_HOST from '@/../env-config';
+import VUE_APP_SERVER_HOST from '@/../env-config';
 
 export default {
   namespaced: true,
@@ -12,7 +12,7 @@ export default {
   },
   actions: {
     async loginWithNaver({ commit }, id) {
-      const { data } = await this.$axios.post(`${SERVER_HOST}/auth/naver`, {
+      const { data } = await this.$axios.post(`${VUE_APP_SERVER_HOST}/auth/naver`, {
         id,
       });
       commit('SET_USER', data);

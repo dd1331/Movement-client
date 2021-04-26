@@ -45,11 +45,11 @@
       </div>
       <v-btn @click="test">teset</v-btn>
       <v-btn @click="test2">google</v-btn>
-      <a href="${SERVER_HOST}/auth/google">google</a> -->
+      <a href="${VUE_APP_SERVER_HOST}/auth/google">google</a> -->
   </div>
 </template>
 <script>
-import SERVER_HOST from '@/../env-config';
+import VUE_APP_SERVER_HOST from '@/../env-config';
 
 export default {
   data: () => ({
@@ -74,7 +74,7 @@ export default {
         phone: this.phone,
         password: this.password,
       };
-      const { data } = await this.$axios.post(`${SERVER_HOST}/users/signup`, payload);
+      const { data } = await this.$axios.post(`${VUE_APP_SERVER_HOST}/users/signup`, payload);
       if (data && data.phone === this.phone) {
         const loggedIn = this.$store.dispatch('auth/loginWithJwt', payload);
         if (loggedIn) this.$router.push('/');
@@ -83,12 +83,12 @@ export default {
     async test() {
       // const { data } = await this.$axios.get('http://192.168.35.123:3000/auth/naver');
       // const { data } = await this.$axios.get('http://192.168.35.21:3000/auth/naver');
-      const { data } = await this.$axios.post(`${SERVER_HOST}/auth/naver`);
+      const { data } = await this.$axios.post(`${VUE_APP_SERVER_HOST}/auth/naver`);
       console.log(data);
     },
     async test2() {
       // const { data } = await this.$axios.get('http://192.168.35.123:3000/auth/google');
-      const { data } = await this.$axios.get(`${SERVER_HOST}/auth/google`);
+      const { data } = await this.$axios.get(`${VUE_APP_SERVER_HOST}/auth/google`);
       console.log(data);
     },
     validate() {
