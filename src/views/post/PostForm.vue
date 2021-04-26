@@ -54,6 +54,7 @@
 </div>
 </template>
 <script>
+import SERVER_HOST from '@/../env-config';
 
 export default {
   data() {
@@ -104,7 +105,7 @@ export default {
 
       formData.append('file', this.file);
 
-      const res = await this.$axios.post('http://localhost:3000/files/upload',
+      const res = await this.$axios.post(`${SERVER_HOST}/files/upload`,
         formData,
         {
           headers: {

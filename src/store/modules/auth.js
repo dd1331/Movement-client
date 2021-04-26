@@ -1,3 +1,4 @@
+import SERVER_HOST from '@/../env-config';
 //
 
 const getAppUser = () => JSON.parse(localStorage.getItem('appUser'));
@@ -28,7 +29,7 @@ export default {
       commit('REMOVE_USER');
     },
     async loginWithJwt({ commit }, payload) {
-      const result = await this.$axios.post('http://localhost:3000/auth/jwt', payload).then((res) => {
+      const result = await this.$axios.post(`${SERVER_HOST}/auth/jwt`, payload).then((res) => {
         if (res.data) {
           commit('SET_USER', res.data);
           this.$axios.defaults.headers.common.Authorization = `Bearer ${res.data.accessToken}`;

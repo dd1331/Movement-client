@@ -25,6 +25,7 @@
 </template>
 <script>
 import ImageGrid from '@/components/ImageGrid';
+import SERVER_HOST from '../../env-config';
 
 export default {
   components: { ImageGrid },
@@ -35,7 +36,7 @@ export default {
   },
   methods: {
     async getNews() {
-      const news = await this.$axios.get('http://localhost:3000/news');
+      const news = await this.$axios.get(`${SERVER_HOST}/news`);
       this.news = news.data;
     },
   },

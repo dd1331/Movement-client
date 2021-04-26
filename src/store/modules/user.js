@@ -1,3 +1,5 @@
+import SERVER_HOST from '@/../env-config';
+
 export default {
   namespaced: true,
   state: () => ({
@@ -10,7 +12,7 @@ export default {
   },
   actions: {
     async loginWithNaver({ commit }, id) {
-      const { data } = await this.$axios.post('http://localhost:3000/auth/naver', {
+      const { data } = await this.$axios.post(`${SERVER_HOST}/auth/naver`, {
         id,
       });
       commit('SET_USER', data);

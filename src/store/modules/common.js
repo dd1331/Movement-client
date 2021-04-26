@@ -1,3 +1,5 @@
+import SERVER_HOST from '@/../env-config';
+
 export default {
   namespaced: true,
   state: () => ({
@@ -14,7 +16,7 @@ export default {
   },
   actions: {
     async fetchCategories({ commit }) {
-      const res = await this.$axios.get('http://localhost:3000/common/categories/board');
+      const res = await this.$axios.get(`${SERVER_HOST}/common/categories/board`);
       commit('setCategories', res.data);
     },
 
