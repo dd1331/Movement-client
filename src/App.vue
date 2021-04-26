@@ -29,8 +29,8 @@
     <Footer></Footer>
   </v-app>
 </template>
-
 <script>
+import SERVER_HOST from '@/../env-config';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -44,6 +44,7 @@ export default {
   },
   created() {
     this.$store.dispatch('common/fetchCategories');
+    console.log('SERVER_HOST', SERVER_HOST);
   },
 };
 </script>
