@@ -8,7 +8,7 @@
     >
       <v-container @click="click(item)" class="py-0">
         <v-img v-if="type==='recommended'"
-          :src="item.files[0]? item.files[0].url : 'https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png'"
+          :src="item.files[0]? item.files[0].url : '/Movement.png'"
           aspect-ratio="1"  width="100"
           class="grey lighten-2"
         >

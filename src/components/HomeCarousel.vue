@@ -7,10 +7,10 @@
       show-arrows-on-hover
       interval="1000000"
     >
-      <v-carousel-item
+      <!-- <v-carousel-item
         v-for="(slide, i) in slides"
         :key="i"
-      >
+      > -->
         <div class="">
           <v-icon class="grey--text text--darken-1 mb-1">
             mdi-trophy
@@ -29,7 +29,7 @@
             <Image-Grid :items="posts" cols="4" type="recommended"></Image-Grid>
           </div>
           <!-- </v-row> -->
-      </v-carousel-item>
+      <!-- </v-carousel-item> -->
     </v-carousel>
   </div>
 </template>
