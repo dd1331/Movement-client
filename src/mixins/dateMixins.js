@@ -5,7 +5,7 @@ const dateMixins = {
   },
   methods: {
     formatDate(date, options) {
-      const format = options && options.format ? options.format : 'YYYY.MM.DD HH:MM';
+      const format = options && options.format ? options.format : 'YYYY.MM.DD HH:mm';
       return dayjs(date).format(format);
     },
   },

@@ -10,7 +10,7 @@
       <div class="d-flex justify-space-between">
         {{post.views}} views
         ・
-        {{formatDate(post.createdAt, {format:'M.D HH:MM'})}}
+        {{formatDate(post.createdAt, {format:'M.D HH:mm'})}}
         <div>
           <option-menu @onEdit="edit" v-if="user && user.id === post.poster.id"
           @onDelete="remove"></option-menu>

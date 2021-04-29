@@ -43,7 +43,7 @@
           label="File input"
           ref="file" v-on:change="handleFileUpload()"
         ></v-file-input>
-        <v-btn @click="submitFile">파일첨부</v-btn>
+        <v-btn @click="submitFile" :disabled="!file">파일첨부</v-btn>
       </v-flex>
       <v-flex align-self-center>
         <v-btn @click="createOrUpdate">확인</v-btn>

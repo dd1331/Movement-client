@@ -9,7 +9,7 @@
       <v-container @click="click(item)" class="py-0">
         <v-img v-if="type==='recommended'"
           :src="item.files[0]? item.files[0].url : '/Movement.png'"
-          aspect-ratio="1"  width="100"
+          aspect-ratio="1"  width="100" contain="true"
           class="grey lighten-2"
         >
         </v-img>

@@ -17,7 +17,7 @@
       <div class="d-flex justify-space-between">
         {{comment.commenter.userName}}
         ・
-        {{formatDate(comment.createdAt,{format:'M.D HH:MM'})}}
+        {{formatDate(comment.createdAt,{format:'M.D HH:mm'})}}
       <div>
         <option-menu v-if="user && comment.commenter.id === user.id"
           @onEdit="deleteComment(comment.id)"
