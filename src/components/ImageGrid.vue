@@ -9,8 +9,8 @@
       <v-container @click="click(item)" class="py-0">
         <v-img v-if="type==='recommended'"
           :src="item.files[0]? item.files[0].url : '/Movement.png'"
-          aspect-ratio="1"  width="100" contain="true"
-          class="grey lighten-2"
+          aspect-ratio="1"  width="100" :contain="true"
+          class="border"
         >
         </v-img>
         <v-img v-if="type==='news'"
@@ -39,3 +39,9 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.border {
+  border: solid #FFCDD2 1px;
+  border-radius: 10%;
+}
+</style>

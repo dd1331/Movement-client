@@ -54,8 +54,8 @@ import VUE_APP_SERVER_HOST from '@/../env-config';
 export default {
   data: () => ({
     valid: true,
-    phone: '01000000002',
-    password: '123123',
+    phone: '',
+    password: '',
     phoneRules: [
       (v) => !!v || 'Phone is required',
       (v) => (v && v.length >= 11) || 'Phone must be more than 11 characters',

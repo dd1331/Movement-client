@@ -2,24 +2,25 @@
   <div>
     <section class="d-flex align-center">
       <h1 v-if="currentCategory">{{title}}</h1>
-       <v-chip v-if="hashtagTitle"
-          class="mx-3 "
-          small
-          color="red"
-          outlined
-        >
-          {{hashtagTitle}}
-        </v-chip>
+      <v-chip v-if="hashtagTitle"
+        class="mx-3 "
+        small
+        color="red"
+        outlined
+      >
+        {{hashtagTitle}}
+      </v-chip>
       <v-spacer></v-spacer>
-      <v-btn v-if="!isNews" small
+      <v-btn v-if="!isNews" small class="red accent-2"
         @click="sendTo(currentCategory.title)">
-        글쓰기
+        <span class="white--text ">글쓰기</span>
       </v-btn>
 
     </section>
     <section>
       <news-list v-if="isNews"></news-list>
-      <post-list-component v-else :posts="posts"></post-list-component>
+      <emphasized-list v-if="!isNews && !hashtagTitle"></emphasized-list>
+      <post-list-component v-if="!isNews" :posts="posts"></post-list-component>
       <p class="text-center" v-if="!hasMore">no more data</p>
     <div v-intersect.quiet="infiniteScrolling"></div>
     </section>
@@ -29,6 +30,7 @@
 
 import VUE_APP_SERVER_HOST from '@/../env-config';
 import PostListComponent from '../../components/PostList3';
+import EmphasizedList from '../../components/EmphasizedList';
 import NewsList from '../../components/NewsList';
 
 export default {
@@ -104,7 +106,7 @@ export default {
     },
   },
 
-  components: { PostListComponent, NewsList },
+  components: { PostListComponent, NewsList, EmphasizedList },
 
 };
 </script>
