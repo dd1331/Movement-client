@@ -10,11 +10,12 @@
     >
       <v-btn
         v-for="link in links"
-        :key="link"
+        :key="link.title"
         text
         class="my-2"
+        @click="onClick(link)"
       >
-        {{ link }}
+        {{ link.title }}
       </v-btn>
       <v-col
         class="mb-4 text-center"
@@ -31,13 +32,25 @@
 export default {
   data: () => ({
     links: [
-      'Home',
-      // 'About Us',
-      'Team',
-      // 'Services',
-      'Blog',
-      'Contact Us',
+      {
+        title: 'Home',
+        link: '/',
+      },
+      {
+        title: 'Github',
+        link: 'https://github.com/dd1331',
+      },
+      {
+        title: 'About me',
+        link: '/',
+      },
     ],
   }),
+  methods: {
+    onClick(link) {
+      if (link.title === 'Github') window.open(link.link);
+      else this.$router.push(link.link);
+    },
+  },
 };
 </script>

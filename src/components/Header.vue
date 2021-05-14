@@ -1,11 +1,14 @@
 <template>
-  <v-app-bar class="test" app color="white" dark flat>
+  <div>
+    <v-alert :class="this.$vuetify.breakpoint.name === 'xs' ? 'd-none' :'' "
+        class="ma-0" text prominent type="warning">
+        개발자 도구를 이용하여 모바일 화면을 이용해주세요 ㅠㅠ
+    </v-alert>
+    <v-app-bar class="test" app color="white" style="position: relative" dark flat>
       <div class="d-flex" @click="goHome">
-        <!-- <v-img alt="Vuetify Logo" class="shrink mr-2" contain src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png" transition="scale-transition" width="40"/> -->
         <h1 class="red--text text--lighten-1">
           movement
         </h1>
-        <v-img alt="Vuetify Name" class="shrink mt-1 hidden-sm-and-down" contain min-width="100" src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png" width="100"/>
       </div>
       <v-spacer></v-spacer>
         <span class="black--text" v-if="!user" @click="$router.push('/login')">
@@ -14,11 +17,11 @@
         <span class="black--text" v-else @click="logout">
           로그아웃
         </span>
-
       <template v-slot:extension>
         <Menu-Slider v-if="!$router.path"></Menu-Slider>
       </template>
     </v-app-bar>
+  </div>
 </template>
 <script>
 import MenuSlider from './MenuSlider';
@@ -41,7 +44,6 @@ export default {
     user() {
       return this.$store.getters['auth/getAppUser'];
     },
-
   },
 };
 </script>

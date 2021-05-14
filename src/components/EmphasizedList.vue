@@ -47,7 +47,7 @@ export default {
         }, {
           title: '이거 절대 먹지마 최악이야',
           view: 9,
-          id: 46,
+          id: 47,
         }],
     };
   },
