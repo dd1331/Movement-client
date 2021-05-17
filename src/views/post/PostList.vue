@@ -19,7 +19,7 @@
     </section>
     <section>
       <news-list v-if="isNews"></news-list>
-      <emphasized-list v-if="!isNews && !hashtagTitle"></emphasized-list>
+      <emphasized-list v-if="!isNews && !hashtagTitle" :posts="emphasizedPosts"></emphasized-list>
       <post-list-component v-if="!isNews" :posts="posts"></post-list-component>
       <p class="text-center" v-if="!hasMore">no more data</p>
     <div v-intersect.quiet="infiniteScrolling"></div>
@@ -65,10 +65,13 @@ export default {
   },
   async created() {
     await this.$store.dispatch('post/fetchCategorizedPosts', this.payload);
+    await this.$store.dispatch('post/fetchEmphasizedPosts', { category: this.payload.category });
   },
-  beforeRouteUpdate(_, __, next) {
+  async beforeRouteUpdate(_, __, next) {
     this.page = 1;
-    this.$store.dispatch('post/fetchCategorizedPosts', this.payload);
+    await this.$store.dispatch('post/fetchCategorizedPosts', this.payload);
+    await this.$store.dispatch('post/fetchEmphasizedPosts', { category: this.payload.category });
+
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and O
     this.hasMore = true;
@@ -100,6 +103,9 @@ export default {
     },
     posts() {
       return this.$store.getters['post/getPosts'];
+    },
+    emphasizedPosts() {
+      return this.$store.getters['post/getEmphasizedPosts'];
     },
     user() {
       return this.$store.getters['auth/getAppUser'];

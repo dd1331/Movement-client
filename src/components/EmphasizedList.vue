@@ -10,7 +10,7 @@
             <div class="d-flex">
               <p class="my-0 red--text text--accent-1 font-weight-bold">{{item.title}}</p>
               <v-spacer></v-spacer>
-              <v-chip small outlined>{{item.view}}</v-chip>
+              <v-chip small outlined>{{item.likeCount}}</v-chip>
             </div>
           </template>
         </div>
@@ -25,30 +25,9 @@
 </template>
 <script>
 export default {
+  props: ['posts'],
   data() {
     return {
-      posts: [
-        {
-          title: '부모님 연세가 어떻게 돼',
-          view: 33312,
-          id: 43,
-        }, {
-          title: '너 백팩샀어? 말하면서 들어와봐',
-          view: 3333,
-          id: 44,
-        }, {
-          title: '지에스25 논란 난거 어떻게 생각해?',
-          view: 23,
-          id: 45,
-        }, {
-          title: '저 오늘 2주년인데 쳐 자고 있음',
-          view: 3333413,
-          id: 46,
-        }, {
-          title: '이거 절대 먹지마 최악이야',
-          view: 9,
-          id: 47,
-        }],
     };
   },
 };

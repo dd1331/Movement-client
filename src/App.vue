@@ -21,8 +21,8 @@ export default {
     Header,
     Footer,
   },
-  created() {
-    this.$store.dispatch('common/fetchCategories');
+  async created() {
+    await this.$store.dispatch('common/fetchCategories');
   },
 };
 </script>

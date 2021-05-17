@@ -7,6 +7,7 @@ export default {
     recommendedPosts: [],
     popularPosts: [],
     recentPosts: [],
+    emphasizedPosts: [],
     activePost: null,
     activelikes: [],
   }),
@@ -25,6 +26,9 @@ export default {
     },
     setRecentPosts(state, posts) {
       state.recentPosts = posts;
+    },
+    setEmphasizedPosts(state, posts) {
+      state.emphasizedPosts = posts;
     },
     setActivePost(state, post) {
       state.activePost = post;
@@ -65,6 +69,10 @@ export default {
     async fetchRecentPosts({ commit }) {
       const { data } = await this.$axios.get(`${VUE_APP_SERVER_HOST}/posts/recent`);
       commit('setRecentPosts', data);
+    },
+    async fetchEmphasizedPosts({ commit }, payload) {
+      const { data } = await this.$axios.get(`${VUE_APP_SERVER_HOST}/posts/emphasized`, { params: payload });
+      commit('setEmphasizedPosts', data);
     },
     async createPost(_, payload) {
       const { data } = await this.$axios.post(`${VUE_APP_SERVER_HOST}/posts/create`, payload);
@@ -108,6 +116,9 @@ export default {
     },
     getRecentPosts(state) {
       return state.recentPosts;
+    },
+    getEmphasizedPosts(state) {
+      return state.emphasizedPosts;
     },
     getActivePost(state) {
       return state.activePost;
