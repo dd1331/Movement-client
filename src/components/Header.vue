@@ -11,6 +11,9 @@
         </h1>
       </div>
       <v-spacer></v-spacer>
+        <v-icon class="grey--text text--darken-1 mr-2" @click="goSearch">
+          mdi-magnify
+        </v-icon>
         <span class="black--text" v-if="!user" @click="$router.push('/login')">
           로그인
         </span>
@@ -38,6 +41,11 @@ export default {
     logout() {
       this.$store.dispatch('auth/logout');
       this.$router.push('/');
+    },
+    goSearch() {
+      if (this.$router.history.current.path === '/posts/search') return;
+
+      this.$router.push('/posts/search');
     },
   },
   computed: {

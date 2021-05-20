@@ -74,6 +74,10 @@ export default {
       const { data } = await this.$axios.get(`${VUE_APP_SERVER_HOST}/posts/emphasized`, { params: payload });
       commit('setEmphasizedPosts', data);
     },
+    async searchPosts(_, payload) {
+      const { data } = await this.$axios.get(`${VUE_APP_SERVER_HOST}/posts/search`, { params: payload });
+      return data;
+    },
     async createPost(_, payload) {
       const { data } = await this.$axios.post(`${VUE_APP_SERVER_HOST}/posts/create`, payload);
       return data;

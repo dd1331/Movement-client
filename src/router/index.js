@@ -8,6 +8,7 @@ import NaverCallback from '../views/NaverCallback.vue';
 import PostList from '../views/post/PostList.vue';
 import PostView from '../views/post/PostView.vue';
 import PostForm from '../views/post/PostForm.vue';
+import PostSearch from '../views/post/PostSearch.vue';
 
 Vue.use(VueRouter);
 
@@ -49,6 +50,11 @@ const routes = [
     path: '/posts/list/:category/:hashtagId?',
     name: 'Posts',
     component: PostList,
+  },
+  {
+    path: '/posts/search',
+    name: 'Posts',
+    component: PostSearch,
   },
   {
     path: '/posts/edit/:id',

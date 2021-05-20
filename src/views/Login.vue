@@ -12,15 +12,18 @@
         :rules="phoneRules"
         label="Phone"
         solo
+        dense
         required
       ></v-text-field>
 
       <v-text-field
         v-model="password"
         :counter="11"
+        type="password"
         :rules="passwordRules"
         label="Password"
         solo
+        dense
         required
       ></v-text-field>
       <v-btn
@@ -53,12 +56,12 @@ export default {
     phone: '',
     password: '',
     phoneRules: [
-      (v) => !!v || 'Phone is required',
-      (v) => (v && v.length >= 11) || 'Phone must be more than 11 characters',
+      (v) => !!v || '휴대폰 번호를 입력해주세요',
+      (v) => (v && v.length >= 11) || '휴대폰 번호를 확인해주세요',
     ],
     passwordRules: [
-      (v) => !!v || 'Phone is required',
-      (v) => (v && v.length > 4) || 'Phone must be more than 11 characters',
+      (v) => !!v || '비밀번호를 입력해주세요',
+      (v) => (v && v.length >= 4) || '비밀번호를 확인해주세요',
     ],
     naverLogin: null,
   }),
