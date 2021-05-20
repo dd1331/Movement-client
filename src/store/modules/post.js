@@ -7,6 +7,7 @@ export default {
     recommendedPosts: [],
     popularPosts: [],
     recentPosts: [],
+    searchedPosts: [],
     emphasizedPosts: [],
     activePost: null,
     activelikes: [],
@@ -35,6 +36,9 @@ export default {
     },
     setActiveLikes(state, likes) {
       state.activePost.likes = likes;
+    },
+    setSearchedPosts(state, posts) {
+      state.searchedPosts = posts;
     },
     // setChildComments(state, payload) {
     //   // TODO REMOVE
@@ -74,9 +78,9 @@ export default {
       const { data } = await this.$axios.get(`${VUE_APP_SERVER_HOST}/posts/emphasized`, { params: payload });
       commit('setEmphasizedPosts', data);
     },
-    async searchPosts(_, payload) {
+    async searchPosts({ commit }, payload) {
       const { data } = await this.$axios.get(`${VUE_APP_SERVER_HOST}/posts/search`, { params: payload });
-      return data;
+      commit('setSearchedPosts', data);
     },
     async createPost(_, payload) {
       const { data } = await this.$axios.post(`${VUE_APP_SERVER_HOST}/posts/create`, payload);
@@ -123,6 +127,9 @@ export default {
     },
     getEmphasizedPosts(state) {
       return state.emphasizedPosts;
+    },
+    getSearchedPosts(state) {
+      return state.searchedPosts;
     },
     getActivePost(state) {
       return state.activePost;

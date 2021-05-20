@@ -24,15 +24,19 @@ export default {
   data() {
     return {
       keyword: '',
-      posts: [],
     };
   },
+  computed: {
+    posts() {
+      return this.$store.getters['post/getSearchedPosts'];
+    },
+  },
   methods: {
-    async search() {
+    search() {
       const payload = {
         keyword: this.keyword,
       };
-      this.posts = await this.$store.dispatch('post/searchPosts', payload);
+      this.$store.dispatch('post/searchPosts', payload);
     },
   },
 };

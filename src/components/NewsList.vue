@@ -9,7 +9,7 @@
 
       <v-list-item
         v-else class="px-0"
-        :key="item.title"
+        :key="index"
         @click="openUrl(item.url)"
       >
         <v-list-item-avatar rounded="0" width="125" height="82">
