@@ -11,6 +11,7 @@
           placeholder="댓글"
           clearable
           @click="checkLoginStatus"
+          @keyup.enter="createComment"
         >
         </v-text-field>
       </v-col>

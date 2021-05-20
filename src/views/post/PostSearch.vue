@@ -7,6 +7,7 @@
           required
           placeholder="검색어"
           dense
+          @keyup.enter="search"
         ></v-text-field>
       <v-btn @click="search" class="white--text py-2" height="40" color="red accent-2 " outlined>
         검색

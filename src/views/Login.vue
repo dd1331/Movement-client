@@ -14,6 +14,7 @@
         solo
         dense
         required
+        @keyup.enter="login"
       ></v-text-field>
 
       <v-text-field
@@ -25,6 +26,7 @@
         solo
         dense
         required
+        @keyup.enter="login"
       ></v-text-field>
       <v-btn
         :disabled="!valid"
