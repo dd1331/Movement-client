@@ -8,7 +8,9 @@
         >
           <template>
             <div class="d-flex">
-              <p class="my-0 red--text text--accent-1 font-weight-bold">{{item.title}}</p>
+              <p class="my-0 red--text text--accent-1 font-weight-bold text-truncate">
+                {{item.title}}
+              </p>
               <v-spacer></v-spacer>
               <v-chip small outlined>{{item.likeCount}}</v-chip>
             </div>

@@ -13,7 +13,6 @@ export default {
   actions: {
     async fetchPopularHashtags({ commit }) {
       const { data } = await this.$axios.get(`${VUE_APP_SERVER_HOST}/hashtags/popular`);
-      console.log(data);
       commit('setPopularHashtags', data);
     },
   },

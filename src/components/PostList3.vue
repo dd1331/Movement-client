@@ -11,13 +11,15 @@
             <p class="grey--text" v-if="category">
               {{titleToKorean(item.category)}}
             </p>
-            <div class="d-flex">
+            <div class="d-flex text-truncate">
               <v-icon v-if="item.files && item.files.length > 0" small class=" mr-1">
                 mdi-image
               </v-icon>
-              <p class="my-1">{{item.title}}</p>
+              <p class="my-1 text-truncate">
+                {{item.title}}
+              </p>
             </div>
-            <div>
+            <div class="text-subtitle-2 subtitle">
               <span class="mr-2" v-if="item.poster">{{item.poster.userName}}</span>
               <span class="mr-2">{{formatDate(item.createdAt,{format:'HH:mm'})}}</span>
               <span class="mr-2">조회 {{item.views}}</span>
@@ -45,3 +47,9 @@ export default {
   }),
 };
 </script>
+
+<style lang="scss" scoped>
+.subtitle {
+  line-height:  0.8rem;
+}
+</style>
