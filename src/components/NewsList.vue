@@ -2,14 +2,13 @@
   <v-list>
     <template v-for="(item, index) in news">
       <v-divider
-        v-if="index % 2 !== 0"
+        v-if="index !== 0"
         :key="index"
-        :inset="item.inset"
       ></v-divider>
 
       <v-list-item
-        v-else class="px-0"
-        :key="index"
+        class="px-0"
+        :key="index + 's'"
         @click="openUrl(item.url)"
       >
         <v-list-item-avatar rounded="0" width="125" height="82">
