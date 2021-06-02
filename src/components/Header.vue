@@ -6,7 +6,7 @@
     </v-alert> -->
     <v-app-bar class="no-padding"
       style="position: relative;" flat>
-      <div class="d-flex grey lighten-5" @click="goHome">
+      <div class="d-flex" @click="goHome">
         <h1 class="red--text text--lighten-1">
           movement
         </h1>
