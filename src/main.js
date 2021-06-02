@@ -17,7 +17,6 @@ Vue.config.errorHandler = () => {
   // `info` is a Vue-specific error info, e.g. which lifecycle hook
   // the error was found in. Only available in 2.2.0+
 };
-axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 Vue.prototype.$axios = axios;
 store.$axios = axios;
 new Vue({

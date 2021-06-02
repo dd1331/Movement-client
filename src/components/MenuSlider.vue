@@ -1,5 +1,5 @@
 <template>
-  <v-card flat outlined rounded="0" color="rgba(0, 0, 0, 0.12)">
+  <v-card flat outlined rounded="0">
 
     <v-tabs v-model="categoryId"
       class="slider-tabs"

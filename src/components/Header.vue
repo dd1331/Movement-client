@@ -1,11 +1,12 @@
 <template>
   <div>
-    <v-alert :class="this.$vuetify.breakpoint.name === 'xs' ? 'd-none' :'' "
+    <!-- <v-alert :class="this.$vuetify.breakpoint.name === 'xs' ? 'd-none' :'' "
         class="ma-0" text prominent type="warning">
         개발자 도구를 이용하여 모바일 화면을 이용해주세요 ㅠㅠ
-    </v-alert>
-    <v-app-bar class="test" app color="white" style="position: relative" dark flat>
-      <div class="d-flex" @click="goHome">
+    </v-alert> -->
+    <v-app-bar class="no-padding"
+      style="position: relative;" flat>
+      <div class="d-flex grey lighten-5" @click="goHome">
         <h1 class="red--text text--lighten-1">
           movement
         </h1>
@@ -57,7 +58,7 @@ export default {
 </script>
 
 <style lang="scss">
-.test {
+.no-padding {
   .v-toolbar__extension {
     padding: 0;
   }

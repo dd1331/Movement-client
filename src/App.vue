@@ -1,7 +1,7 @@
 <template>
-  <v-app>
+  <v-app :style="pcLayoutTemp">
     <Header></Header>
-    <v-main style="padding:0;">
+    <v-main class="grey lighten-5">
       <v-container fluid>
         <router-view>
         </router-view>
@@ -38,6 +38,8 @@ export default {
     return {
       snackbar: false,
       message: '',
+      // TODO PC UI
+      pcLayoutTemp: 'width:375px;margin-left: auto; margin-right: auto;',
     };
   },
   async created() {
