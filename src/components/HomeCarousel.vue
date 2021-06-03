@@ -7,10 +7,10 @@
       show-arrows-on-hover
       interval="1000000"
     >
-      <!-- <v-carousel-item
-        v-for="(slide, i) in slides"
+      <v-carousel-item
+        v-for="(page, i) in pages"
         :key="i"
-      > -->
+      >
         <div class="">
           <v-icon class="grey--text text--darken-1 mb-1">
             mdi-trophy
@@ -26,10 +26,10 @@
           > -->
           <div class="mt-3">
 
-            <Image-Grid :items="posts" cols="4" type="recommended"></Image-Grid>
+            <Image-Grid :items="page" cols="4" type="recommended"></Image-Grid>
           </div>
           <!-- </v-row> -->
-      <!-- </v-carousel-item> -->
+      </v-carousel-item>
     </v-carousel>
   </div>
 </template>
@@ -56,6 +56,13 @@ export default {
   },
   components: {
     ImageGrid,
+  },
+  computed: {
+    pages() {
+      const half = Math.ceil(this.posts.length / 2);
+
+      return [this.posts.slice(0, half), this.posts.slice(-half)];
+    },
   },
 };
 </script>
