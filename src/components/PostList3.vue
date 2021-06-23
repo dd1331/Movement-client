@@ -21,9 +21,9 @@
             </div>
             <div class="text-subtitle-2 subtitle">
               <span class="mr-2" v-if="item.poster">{{item.poster.userName}}</span>
-              <span class="mr-2">{{formatDate(item.createdAt,{format:'HH:mm'})}}</span>
-              <span class="mr-2">조회 {{item.views}}</span>
+              <span class="mr-2">{{formatDate(item.createdAt,{format:'MM/DD'})}}</span>
               <span class="mr-2">댓글 {{item.comments ? item.comments.length : 0}}</span>
+              <span class="mr-2">조회 {{item.views}}</span>
             </div>
           </v-list-item-content>
         </template>
