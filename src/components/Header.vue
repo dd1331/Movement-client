@@ -7,7 +7,7 @@
     <v-app-bar class="no-padding"
       style="position: relative;" flat>
       <div class="d-flex" @click="goHome">
-        <h1 class="red--text text--lighten-1">
+        <h1 class="m-pointer red--text text--lighten-1">
           movement
         </h1>
       </div>
@@ -15,10 +15,10 @@
         <v-icon class="grey--text text--darken-1 mr-2" @click="goSearch">
           mdi-magnify
         </v-icon>
-        <span class="black--text" v-if="!user" @click="$router.push('/login')">
+        <span class="black--text m-pointer" v-if="!user" @click="$router.push('/login')">
           로그인
         </span>
-        <span class="black--text" v-else @click="logout">
+        <span class="black--text m-pointer" v-else @click="logout">
           로그아웃
         </span>
       <template v-slot:extension>
@@ -62,5 +62,8 @@ export default {
   .v-toolbar__extension {
     padding: 0;
   }
+}
+.m-pointer {
+  cursor:pointer;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex">
     <v-avatar
-      class="mt-1"
+      class="mt-1 m-pointer"
       color="primary"
       :size="size? size: 45"
     >
@@ -15,9 +15,13 @@
     </v-avatar>
     <v-container fluid class="pt-0 pl-5 pr-0">
       <div class="d-flex justify-space-between">
-        {{comment.commenter.userName}}
-        ・
-        {{formatDate(comment.createdAt,{format:'M.D HH:mm'})}}
+        <div>
+          <span class="m-pointer">
+            {{comment.commenter.userName}}
+          </span>
+          ・
+          {{formatDate(comment.createdAt,{format:'M.D HH:mm'})}}
+        </div>
       <div>
         <option-menu v-if="user && comment.commenter.id === user.id"
           @onEdit="deleteComment(comment.id)"
@@ -27,15 +31,15 @@
       <span>
         {{comment.content}}
       </span>
-      <div class="ml-n1">
-        <v-btn icon>
-          <v-icon @click="likeComment(comment.id)"
+      <div class="">
+        <v-btn icon class="mr-1">
+          <v-icon @click="likeComment(comment.id)" class="mr-1"
             :color="likeStatus && likeStatus !== null ? 'blue lighten-1' : ''">
             mdi-thumb-up
           </v-icon>{{comment.likes.filter((like) => like.isLike === true).length}}
         </v-btn>
         <v-btn icon>
-          <v-icon @click="dislikeComment(comment.id)"
+          <v-icon @click="dislikeComment(comment.id)" class="mr-1"
             :color="!likeStatus && likeStatus !== null ? 'pink accent-1' : ''"
           >
             mdi-thumb-down
@@ -50,7 +54,8 @@
       <comment-input v-if="isInputOpen" type="child" :parent="comment">
       </comment-input>
       <span v-if="comment.childCount" @click="$emit('toggleComment', comment)"
-        class="font-weight-bold">{{comment.childCount}}개 {{comment.isOpen ? '숨기기' : '더보기'}}
+        class="font-weight-bold m-pointer">
+        {{comment.childCount}}개 {{comment.isOpen ? '숨기기' : '더보기'}}
       </span>
     </v-container>
   </div>

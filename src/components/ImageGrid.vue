@@ -9,6 +9,7 @@
       <v-container @click="click(item)" class="py-0">
         <v-card color="#ffffff" class="mb-1">
           <v-img v-if="type==='recommended'"
+            class="m-pointer"
             aspect-ratio="1"  width="100" :contain="true"
             :style="`background-image:url(${item.files[0]? item.files[0].url : '/Movement.png'});
               background-size:cover; background-repeat:no-repeat;
@@ -19,7 +20,7 @@
             :src="item.image"
             aspect-ratio="1"  width="170"
             height="100"
-            class="grey lighten-2"
+            class="grey lighten-2 m-pointer"
           >
           </v-img>
         </v-card>
@@ -46,5 +47,8 @@ export default {
 .border {
   border: solid #FFCDD2 1px;
   border-radius: 10%;
+}
+.m-pointer {
+  cursor:pointer;
 }
 </style>

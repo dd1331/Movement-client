@@ -4,7 +4,7 @@
       <h2>
         {{post.title}}
       </h2>
-      <p class="ma-0 font-weight-medium">
+      <p class="ma-0 font-weight-medium m-pointer">
         {{post.poster.userName}}
       </p>
       <div class="d-flex justify-space-between">
@@ -37,7 +37,6 @@
       </div> -->
     </section>
     <v-divider class="my-3"></v-divider>
-    <!-- <section class="content"> -->
     <section>
       <div>
         <v-img v-if="post.files[0]" :src="post.files[0].url"></v-img>
