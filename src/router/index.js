@@ -9,6 +9,7 @@ import PostList from '../views/post/PostList.vue';
 import PostView from '../views/post/PostView.vue';
 import PostForm from '../views/post/PostForm.vue';
 import PostSearch from '../views/post/PostSearch.vue';
+import Profile from '../views/user/Profile.vue';
 
 Vue.use(VueRouter);
 
@@ -60,6 +61,12 @@ const routes = [
     path: '/posts/edit/:id',
     name: 'PostFormEdit',
     component: PostForm,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/user/profile',
+    name: 'UserProfile',
+    component: Profile,
     meta: { requiresAuth: true },
   },
   {
