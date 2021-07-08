@@ -10,6 +10,7 @@ import PostView from '../views/post/PostView.vue';
 import PostForm from '../views/post/PostForm.vue';
 import PostSearch from '../views/post/PostSearch.vue';
 import Profile from '../views/user/Profile.vue';
+import Matcher from '../views/Matcher.vue';
 
 Vue.use(VueRouter);
 
@@ -54,7 +55,7 @@ const routes = [
   },
   {
     path: '/posts/search',
-    name: 'Posts',
+    name: 'PostsSearch',
     component: PostSearch,
   },
   {
@@ -68,6 +69,11 @@ const routes = [
     name: 'UserProfile',
     component: Profile,
     meta: { requiresAuth: true },
+  },
+  {
+    path: '/matcher',
+    name: 'Matcher',
+    component: Matcher,
   },
   {
     path: '/about',

@@ -10,8 +10,6 @@ dayjs.tz.setDefault('Asia/Seoul');
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
 const dateMixins = {
-  created() {
-  },
   methods: {
     formatDate(date, options) {
       const diff = dayjs().diff(dayjs(date), 'd');
