@@ -1,29 +1,19 @@
 <template>
   <div>
     <div>
-      <v-btn @click="join">match</v-btn>
-      <v-select
+      <v-btn v-if="!activeRoom" @click="join">match</v-btn>
+      <v-select v-if="!activeRoom"
+        class="mt-10"
         v-model="selected"
         :items="items"
         label="주제"
         dense
       ></v-select>
-      <v-container
-        id="scroll-target"
-        style="max-height: 1000px"
-        class="overflow-y-auto"
-      >
-        <div
-          v-scroll:#scroll-target="onScroll"
-          style="height: 40px"
-          v-for="(chat, i) in chat" :key="i"
-        >
-          <p :class="i % 2 === 1 ?'text-right' : ''">
-            {{chat.userName}} {{chat.message}} {{formatDate(chat.createdAt, {format: 'MM/DD'})}}
-          </p>
-        </div>
-      </v-container>
+      <p v-if="activeRoom">{{topicToKorean(activeRoom.topic)}}</p>
+      <p v-if="activeRoom">{{totalClient}}</p>
+      <chat></chat>
       <v-text-field
+        v-if="activeRoom"
         v-model="message"
         dense
         placeholder="메시지"
@@ -36,37 +26,53 @@
 </template>
 
 <script>
-import dateMixins from '../mixins/dateMixins';
+import translateMixins from '../mixins/translateMixins';
+import Chat from '../components/Chat';
 
 export default {
-  mixins: [dateMixins],
+  components: { Chat },
+  mixins: [translateMixins],
   data() {
     return {
       roomIds: [],
       items: ['plogging', 'running', 'coding'],
       selected: 'plogging',
       message: '',
-      chat: [],
+      totalClient: 0,
     };
   },
   created() {
-    this.$socket.on('message', (data) => {
-      this.chat.push(data);
-    });
     this.$socket.on('join', (data) => {
       this.roomIds.push(data.id);
-      this.$store.dispatch('chat/addRoom');
+      this.$store.dispatch('chat/addRoom', data);
+      this.$store.dispatch('chat/setActiveRoom', data);
     });
+    this.$socket.on('join2', (data) => {
+      this.totalClient = data.totalClient;
+    });
+  },
+  computed: {
+    activeRoom() {
+      return this.$store.getters['chat/getActiveRoom'];
+    },
+    user() {
+      return this.$store.getters['auth/getAppUser'];
+    },
   },
   methods: {
     send() {
       // if (this.$socket.disconnected) this.$socket.connect();
-      const user = { roomId: this.roomIds[0], message: this.message ? this.message : 'message to romm' };
+      if (!this.message) return;
+      const user = {
+        roomId: this.roomIds[0],
+        message: this.message ? this.message : 'message to romm',
+        user: this.user,
+      };
       this.$socket.emit('match', user);
       this.message = '';
     },
     join() {
-      const user = { location: 'etst', topic: this.selected };
+      const user = { location: 'etst', topic: this.selected, user: this.user };
 
       this.$socket.emit('joinRoom', user);
     },
