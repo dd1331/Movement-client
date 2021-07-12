@@ -10,7 +10,7 @@
         dense
       ></v-select>
       <p v-if="activeRoom">{{topicToKorean(activeRoom.topic)}}</p>
-      <p v-if="activeRoom">{{totalClient}}</p>
+      <p v-if="activeRoom">{{totalClient}}명 접속중</p>
       <chat></chat>
       <v-text-field
         v-if="activeRoom"

@@ -1,16 +1,18 @@
 <template>
-  <v-container
+  <ul
     id="scroll-target"
     style="max-height: 500px"
-    class="overflow-y-auto"
+    class="overflow-y-auto px-0"
   >
-    <div
+    <li
       v-scroll:#scroll-target="onScroll"
-      :style="chat.userName === user.userName ? 'height:35px' : 'height:65px'"
+      style="list-style-type: none;"
+      class="pl-0"
       v-for="(chat, i) in chat" :key="i"
     >
       <div v-if="!chat.isNotification"
         :class="messageAlign(chat)"
+        class="mt-4"
       >
         <v-avatar
           v-if="chat.userName !== user.userName"
@@ -18,8 +20,8 @@
           color="primary"
           size="30"
         >
-          <img v-if="chat.avatar"
-            :src="comment.commenter.avatar"
+          <img v-if="true"
+            src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"
             alt="John"
           >
           <span v-else class="white--text headline">
@@ -27,20 +29,35 @@
           </span>
         </v-avatar>
 
-        <span v-if="chat.userName !== user.userName">
+        <span
+          v-if="chat.userName !== user.userName"
+          class="text-subtitle-2"
+        >
           {{chat.userName}}
         </span>
       </div>
-      <p v-if="!chat.isNotification" :class="messageAlign(chat)"
-        class="mt-1"
+      <div v-if="!chat.isNotification" :class="messageAlign(chat)"
+        class="mt-1 d-flex"
       >
-        {{chat.message}} {{formatDate(chat.createdAt, {format: 'MM/DD'})}}
-      </p>
+        <div class="d-flex">
+          <p v-if="chat.userName === user.userName" class="align-self-center mx-1">
+            {{formatDate(chat.createdAt, {format: 'MM/DD'})}}
+          </p>
+
+          <p class="grey lighten-2 rounded-lg px-3 py-1">
+            {{chat.message}}
+          </p>
+        </div>
+          <p v-if="chat.userName !== user.userName" class="align-self-center mx-1">
+            {{formatDate(chat.createdAt, {format: 'MM/DD'})}}
+          </p>
+
+      </div>
       <p v-else :class="messageAlign(chat)" class="my-1">
         {{chat.message}}
       </p>
-    </div>
-  </v-container>
+    </li>
+  </ul>
 </template>
 <script>
 import dateMixins from '../mixins/dateMixins';
@@ -61,7 +78,7 @@ export default {
     },
     messageAlign(chat) {
       if (chat.isNotification) return 'text-center';
-      return chat.userName === this.user.userName ? 'text-right' : '';
+      return chat.userName === this.user.userName ? ' align-end flex-column' : '';
     },
 
   },
