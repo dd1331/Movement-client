@@ -10,7 +10,10 @@
         dense
       ></v-select>
       <p v-if="activeRoom">{{topicToKorean(activeRoom.topic)}}</p>
-      <p v-if="activeRoom">{{totalClient}}명 접속중</p>
+      <v-icon v-if="activeRoom" class="grey--text text--darken-1 mr-2">
+        mdi-account
+      </v-icon>
+      <p v-if="activeRoom" class="font-weight-bold d-inline">{{totalClient}}</p>
       <chat></chat>
       <v-text-field
         v-if="activeRoom"

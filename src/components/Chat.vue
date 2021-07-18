@@ -8,7 +8,7 @@
       v-scroll:#scroll-target="onScroll"
       style="list-style-type: none;"
       class="pl-0"
-      v-for="(chat, i) in chat" :key="i"
+      v-for="(chat, i) in activeChat" :key="i"
     >
       <div v-if="!chat.isNotification"
         :class="messageAlign(chat)"
@@ -33,7 +33,7 @@
           v-if="chat.userName !== user.userName"
           class="text-subtitle-2"
         >
-          {{chat.userName}}
+          {{chat.userName}}{{chat.createdAt}}
         </span>
       </div>
       <div v-if="!chat.isNotification" :class="messageAlign(chat)"
@@ -41,7 +41,7 @@
       >
         <div class="d-flex">
           <p v-if="chat.userName === user.userName" class="align-self-center mx-1">
-            {{formatDate(chat.createdAt, {format: 'MM/DD'})}}
+            {{chatFormatDate(chat.createdAt, {format: 'hh:mm'})}}
           </p>
 
           <p class="grey lighten-2 rounded-lg px-3 py-1">
@@ -49,7 +49,7 @@
           </p>
         </div>
           <p v-if="chat.userName !== user.userName" class="align-self-center mx-1">
-            {{formatDate(chat.createdAt, {format: 'MM/DD'})}}
+            {{chatFormatDate(chat.createdAt, {format: 'hh:mm'})}}
           </p>
 
       </div>
@@ -67,7 +67,6 @@ export default {
   mixins: [dateMixins, translateMixins],
   data() {
     return {
-      chat: [],
     };
   },
   methods: {
@@ -88,7 +87,7 @@ export default {
 
   created() {
     this.$socket.on('message', (data) => {
-      this.chat.push(data);
+      this.$store.dispatch('chat/addChat', data);
     });
     this.$socket.on('join2', (data) => {
       const topic = this.topicToKorean(data.topic);
@@ -98,11 +97,19 @@ export default {
         isNotification: true,
       };
       this.chat.push(chat);
+      this.$store.dispatch('chat/fetchChat', data.chat);
+      // TODO replace it with a better way
+      setTimeout(() => {
+        this.scrollToEnd();
+      }, 0);
     });
   },
   computed: {
     user() {
       return this.$store.getters['auth/getAppUser'];
+    },
+    activeChat() {
+      return this.$store.getters['chat/getActiveChat'];
     },
   },
 };

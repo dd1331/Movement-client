@@ -14,10 +14,14 @@ const dateMixins = {
     formatDate(date, options) {
       const diff = dayjs().diff(dayjs(date), 'd');
       if (diff > 2) {
-        const format = options && options.format ? options.format : 'YYYY.MM.DD HH:mm';
+        const format = options?.format || 'YYYY.MM.DD HH:mm';
         return dayjs(date).format(format);
       }
       return dayjs(date).fromNow();
+    },
+    chatFormatDate(date, options) {
+      const format = options?.format || 'YYYY.MM.DD HH:mm';
+      return dayjs(date).format(format);
     },
   },
 };
