@@ -31,22 +31,28 @@
           <p>
             글
           </p>
-            100개
+            {{profile.postSum}}개
         </v-container>
         <v-container>
           <p>
             댓글
           </p>
-          10개
+          {{profile.commentSum}}개
         </v-container>
         <v-container>
           <p>
             좋아요
           </p>
-          30개
+          {{profile.likeSum}}개
+        </v-container>
+        <v-container>
+          <p>
+            싫어요
+          </p>
+          {{profile.dislikeSum}}개
         </v-container>
       </v-container>
-      <v-container class="d-flex">
+      <!-- <v-container class="d-flex">
         <v-container>
           <p>
             팔로워
@@ -59,7 +65,7 @@
           </p>
           13
         </v-container>
-      </v-container>
+      </v-container> -->
     </v-card>
   </div>
 </template>
@@ -69,6 +75,12 @@ export default {
     user() {
       return this.$store.getters['auth/getAppUser'];
     },
+    profile() {
+      return this.$store.getters['user/getProfile'];
+    },
+  },
+  created() {
+    this.$store.dispatch('user/fetchProfile', this.user.id);
   },
 };
 </script>

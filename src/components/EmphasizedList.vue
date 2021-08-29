@@ -16,9 +16,10 @@
             </div>
           </template>
         </div>
+        <!-- TODO replace temp key -->
         <v-divider
           v-if="index < posts.length - 1"
-          :key="index"
+          :key="item.id + index + Math.random()"
         ></v-divider>
       </template>
     </v-list>

@@ -12,15 +12,20 @@
         </h1>
       </div>
       <v-spacer></v-spacer>
-        <v-icon class="grey--text text--darken-1 mr-2" @click="goSearch">
+        <v-icon class="grey--text text--darken-1 mr-2" @click="routeTo('/posts/search')">
           mdi-magnify
         </v-icon>
         <span class="black--text m-pointer" v-if="!user" @click="$router.push('/login')">
           로그인
         </span>
-        <span class="black--text m-pointer" v-else @click="logout">
-          로그아웃
-        </span>
+        <div v-else>
+          <v-icon class="grey--text text--darken-1 mr-2" @click="routeTo('/user/profile')">
+            mdi-account-outline
+          </v-icon>
+          <span class="black--text m-pointer"  @click="logout">
+            로그아웃
+          </span>
+        </div>
       <template v-slot:extension>
         <Menu-Slider v-if="!$router.path"></Menu-Slider>
       </template>
@@ -43,10 +48,10 @@ export default {
       this.$store.dispatch('auth/logout');
       this.$router.push('/');
     },
-    goSearch() {
-      if (this.$router.history.current.path === '/posts/search') return;
+    routeTo(path) {
+      if (this.$router.history.current.path === path) return;
 
-      this.$router.push('/posts/search');
+      this.$router.push(path);
     },
   },
   computed: {
