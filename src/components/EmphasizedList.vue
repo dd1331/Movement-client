@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-list class="pa-0 mt-3 grey lighten-5">
+    <v-list class="pa-0 mt-3">
       <template v-for="(item, index) in posts">
         <div :key="item.id" class="ma-1 m-pointer"
           @click="$router

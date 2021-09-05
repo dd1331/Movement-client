@@ -1,6 +1,6 @@
 <template v-if="posts">
 <div>
-  <v-list class="pa-0 grey lighten-5" v-if="posts">
+  <v-list class="pa-0" v-if="posts">
     <template v-for="(item, index) in posts">
       <v-list-item :key="item.id" class="px-1"
         @click="$router

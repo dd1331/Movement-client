@@ -10,6 +10,9 @@
       </h3>
     </div>
     <Post-List :posts="popularPosts" category="true"></Post-List>
+    <v-icon class="mb-1">
+        mdi-fire
+    </v-icon>
     <h3 class="grey--text text--darken-3 d-inline">
       트렌드
     </h3>

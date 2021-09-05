@@ -1,12 +1,16 @@
 <template>
-  <v-app :style="pcLayoutTemp">
+  <v-app>
     <Header></Header>
-    <v-main class="grey lighten-5">
-      <v-container fluid>
-        <router-view>
-        </router-view>
+    <v-container :style="wrapper" style="padding:0">
+      <v-container style="display: flex">
+        <v-main :style="innerWrapper">
+          <div>
+            <router-view/>
+          </div>
+        </v-main>
+        <Banner v-if="!isMobile"/>
       </v-container>
-    </v-main>
+    </v-container>
     <Footer></Footer>
     <v-snackbar v-model="snackbar">
       {{ message }}
@@ -24,8 +28,9 @@
   </v-app>
 </template>
 <script>
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import Banner from '@/components/Banner';
 
 export default {
   name: 'App',
@@ -33,17 +38,28 @@ export default {
   components: {
     Header,
     Footer,
+    Banner,
   },
   data() {
     return {
       snackbar: false,
       message: '',
-      // TODO PC UI
-      pcLayoutTemp: 'width:375px;margin-left: auto; margin-right: auto;',
+
     };
   },
   async created() {
     await this.$store.dispatch('common/fetchCategories');
+  },
+  computed: {
+    isMobile() {
+      return this.$vuetify.breakpoint.mobile;
+    },
+    wrapper() {
+      return `margin-left: auto; margin-right: auto; ${this.isMobile ? '' : 'max-width: 70rem;'}`;
+    },
+    innerWrapper() {
+      return `margin-right: auto; ${this.isMobile ? '' : 'width:10%;'}`;
+    },
   },
   errorCaptured(err) {
     const { message } = err.response.data;

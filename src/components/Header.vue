@@ -4,9 +4,9 @@
         class="ma-0" text prominent type="warning">
         개발자 도구를 이용하여 모바일 화면을 이용해주세요 ㅠㅠ
     </v-alert> -->
-    <v-app-bar class="no-padding"
-      style="position: relative;" flat>
-      <div class="d-flex" @click="goHome">
+    <v-app-bar class="no-padding bg-white"  :style="wrapper"
+      style="position: relative; background:white" flat >
+      <div @click="goHome">
         <h1 class="m-pointer red--text text--lighten-1">
           movement
         </h1>
@@ -26,10 +26,14 @@
             로그아웃
           </span>
         </div>
-      <template v-slot:extension>
-        <Menu-Slider v-if="!$router.path"></Menu-Slider>
-      </template>
     </v-app-bar>
+        <div style="border-top: 1px solid; border-bottom: 1px solid"
+          class="grey--text text--lighten-1"
+        >
+          <div :style="wrapper">
+            <Menu-Slider v-if="!$router.path"></Menu-Slider>
+         </div>
+        </div>
   </div>
 </template>
 <script>
@@ -57,6 +61,12 @@ export default {
   computed: {
     user() {
       return this.$store.getters['auth/getAppUser'];
+    },
+    isMobile() {
+      return this.$vuetify.breakpoint.mobile;
+    },
+    wrapper() {
+      return `margin-left: auto; margin-right: auto; ${this.isMobile ? '' : 'max-width: 70rem;'}`;
     },
   },
 };
